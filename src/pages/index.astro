@@ -1,5 +1,7 @@
 ---
+import Contacts from "../components/Contacts.astro";
 
+const pageTitle = "🛸";
 ---
 
 <html lang="en">
@@ -8,14 +10,15 @@
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<title>misononoa.cc</title>
+		<title>{pageTitle}</title>
 	</head>
 	<body>
-		<h1>リンク集(仮)</h1>
-		<ul>
-			<li><a href="https://twitter.com">Twitter</a></li>
-			<li><a href="https://www.threads.net/@misononoa">Threads</a></li>
-			<li><a href="https://misskey.io/@misonoa">Misskey.io</a></li>
-		</ul>
+		<h1>{pageTitle}</h1>
+		<h2>リンク集(仮)</h2>
+		<div>
+			<Contacts platform="x" tld="com" username="misononoa" />
+			<Contacts platform="threads" tld="net" username="misononoa" />
+			<Contacts platform="msky.misononoa" tld="cc" username="misononoa" alt="misskey(個人)"/>
+		</div>
 	</body>
 </html>

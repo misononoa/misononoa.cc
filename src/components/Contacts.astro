@@ -1,0 +1,15 @@
+---
+const {platform, tld, username, alt} = Astro.props;
+const linktext = alt || platform;
+---
+
+<p><a href={`https://${platform}.${tld}/@${username}`}>{linktext}</a></p>
+
+<style>
+    p a {
+        font-size: large;
+        padding: 0;
+        margin: 0;
+        text-decoration: none;
+    }
+</style>
