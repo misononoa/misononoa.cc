@@ -1,17 +1,12 @@
 ---
 import Contacts from "../components/Contacts.astro";
+import Head from "../components/Head.astro";
 
-const pageTitle = "🛸";
+const pageTitle = "misononoaのページ";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{pageTitle}</title>
-	</head>
+<html>
+	<Head title={`${pageTitle}`} override="true" />
 	<body>
 		<h1>{pageTitle}</h1>
 		<h2>リンク集(仮)</h2>
