@@ -1,0 +1,31 @@
+.hamburger {
+	float: inline-start;
+	width: min-content;
+	padding: auto;
+	cursor: pointer;
+}
+
+.hamburger .line {
+	display: block;
+	width: 32px;
+	height: 5px;
+	border-radius: 2px;
+	margin-bottom: 6px;
+	background-color: #ff9776;
+}
+
+.nav-links {
+	float: inherit;
+	height: max-content;
+	padding: 0 3rem;
+}
+
+.nav-links a {
+	margin: 0;
+	padding: 0 5px;
+	color: darkblue;
+	text-decoration: none;
+	font-size: 110%;
+	font-weight: bold;
+	text-transform: uppercase;
+}

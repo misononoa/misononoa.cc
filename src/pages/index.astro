@@ -1,23 +1,12 @@
 ---
-import Contacts from "../components/Contacts.astro";
-import Head from "../components/Head.astro";
+import "../styles/global.css";
 
-const pageTitle = "misononoaのページ";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import MyContacts from "../components/MyContacts.astro";
+import Contact from "../components/Contact.astro";
 ---
 
-<html>
-	<Head title={`${pageTitle}`} override="true" />
-	<body>
-		<h1>{pageTitle}</h1>
-		<h2>ご連絡</h2>
-		<div>
-			<Contacts fqdn="x.com" username="misononoa" text="X" />
-			<Contacts fqdn="threads.net" username="misononoa" text="Threads" />
-			<Contacts
-				fqdn="msky.misononoa.cc"
-				username="misononoa"
-				text="misskey(個人)"
-			/>
-		</div>
-	</body>
-</html>
+<BaseLayout title="misononoaのページ 🛸" titleOverride="true">
+	こんにちは!
+	<MyContacts />
+</BaseLayout>

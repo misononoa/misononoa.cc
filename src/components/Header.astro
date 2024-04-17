@@ -1,0 +1,17 @@
+---
+import Hamburger from "./Hamburger";
+import "../styles/Header.css";
+import "@fontsource/dotgothic16";
+
+export interface Props {
+	title: string;
+}
+const { title } = Astro.props;
+---
+
+<header>
+	<h1>{title}</h1>
+	<nav>
+		<Hamburger client:load />
+	</nav>
+</header>

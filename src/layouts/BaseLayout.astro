@@ -1,0 +1,26 @@
+---
+import Header from "../components/Header.astro";
+import "../styles/global.css";
+import "@fontsource-variable/manrope";
+
+export interface Props {
+	title: string;
+	titleOverride?: string;
+}
+const { title, titleOverride } = Astro.props;
+---
+
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<!-- <link rel="icon" type="image/svg+xml" href="/favicon.svg" /> -->
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{titleOverride === "true" ? title : title + " - 🛸"}</title>
+	</head>
+
+	<body style="font-family: manrope;">
+		<Header title={`${title}`} />
+		<slot />
+	</body>
+</html>
