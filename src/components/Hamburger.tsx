@@ -2,7 +2,7 @@ import React from "react";
 import "../styles/Hamburger.css";
 
 const Hamburger: React.FC = () => {
-	const [isOpen, setIsOpen] = React.useState(false);
+	const [isOpen, setIsOpen] = React.useState(true);
 	const toggleMenu = () => {
 		setIsOpen(!isOpen);
 	};
