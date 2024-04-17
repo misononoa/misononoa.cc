@@ -1,13 +1,13 @@
 ---
 import Header from "../components/Header.astro";
 import "../styles/global.css";
-import "@fontsource/noto-color-emoji";
 
 export interface Props {
 	title: string;
 	titleOverride?: boolean;
+	iconName: string;
 }
-const { title, titleOverride } = Astro.props;
+const { title, titleOverride, iconName } = Astro.props;
 ---
 
 <html>
@@ -20,7 +20,7 @@ const { title, titleOverride } = Astro.props;
 	</head>
 
 	<body>
-		<Header title={`${title}`} />
+		<Header title={title} iconName={iconName} />
 		<main>
 			<slot />
 		</main>
