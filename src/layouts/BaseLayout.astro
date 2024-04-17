@@ -19,7 +19,7 @@ const { title, titleOverride } = Astro.props;
 		<title>{titleOverride === "true" ? title : title + " - 🛸"}</title>
 	</head>
 
-	<body style="font-family: manrope;">
+	<body>
 		<Header title={`${title}`} />
 		<slot />
 	</body>
