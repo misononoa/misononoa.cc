@@ -16,8 +16,8 @@ const Hamburger: React.FC = () => {
 			</div>
 			{isOpen && (
 				<div className="nav-links">
-					<a href="/dist">Home</a>
-					<a href="/dist/about">About</a>
+					<a href="/">Home</a>
+					<a href="/about">About</a>
 				</div>
 			)}
 		</>
