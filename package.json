@@ -13,12 +13,12 @@
     "@astrojs/check": "^0.5.10",
     "@astrojs/react": "^3.3.0",
     "@fontsource/dotgothic16": "^5.0.18",
+    "@fontsource/noto-color-emoji": "^5.0.26",
     "@types/react": "^18.2.79",
     "@types/react-dom": "^18.2.25",
     "astro": "^4.6.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "twemoji": "^14.0.2",
     "typescript": "^5.4.5"
   }
 }
