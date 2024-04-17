@@ -4,7 +4,7 @@ import "../styles/global.css";
 
 export interface Props {
 	title: string;
-	titleOverride?: string;
+	titleOverride?: boolean;
 }
 const { title, titleOverride } = Astro.props;
 ---
@@ -15,7 +15,7 @@ const { title, titleOverride } = Astro.props;
 		<!-- <link rel="icon" type="image/svg+xml" href="/favicon.svg" /> -->
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<title>{titleOverride === "true" ? title : title + " - 🛸"}</title>
+		<title>{titleOverride ? title : title + " - 🛸"}</title>
 	</head>
 
 	<body>
