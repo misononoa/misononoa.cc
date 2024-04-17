@@ -9,17 +9,3 @@ const { fqdn, username, text } = Astro.props;
 ---
 
 <p><a href={`https://${fqdn}/@${username}`}>{text}</a></p>
-
-<style>
-	* {
-		margin: 0;
-		margin-bottom: 0.5rem;
-		padding: 0;
-	}
-	p a {
-		font-size: 0.8rem;
-		padding: 0;
-		margin: 0;
-		text-decoration: none;
-	}
-</style>
