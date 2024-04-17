@@ -23,7 +23,7 @@ const Hamburger: React.FC = () => {
 					</span>
 				)}
 				<span>
-					<a href="/about">About</a>
+					<a href="/about">About_Me</a>
 				</span>
 			</div>
 		</>
