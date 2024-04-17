@@ -1,6 +1,5 @@
 import React from "react";
 import "../styles/Hamburger.css";
-import twemoji from "twemoji";
 
 const Hamburger: React.FC = () => {
 	const [isOpen, setIsOpen] = React.useState(false);
