@@ -1,8 +1,9 @@
 import React from "react";
 import "../styles/Hamburger.css";
+import twemoji from "twemoji";
 
 const Hamburger: React.FC = () => {
-	const [isOpen, setIsOpen] = React.useState(true);
+	const [isOpen, setIsOpen] = React.useState(false);
 	const toggleMenu = () => {
 		setIsOpen(!isOpen);
 	};
@@ -14,12 +15,17 @@ const Hamburger: React.FC = () => {
 				<span className="line"></span>
 				<span className="line"></span>
 			</div>
-			{isOpen && (
-				<div className="nav-links">
-					<a href="/">Home</a>
+			<div className="nav-links">
+				{isOpen && (
+					<span className="invisible">
+						<a href="/">Home</a>
+						<a href="https://msky.misononoa.cc/">Misskey</a>
+					</span>
+				)}
+				<span>
 					<a href="/about">About</a>
-				</div>
-			)}
+				</span>
+			</div>
 		</>
 	);
 };

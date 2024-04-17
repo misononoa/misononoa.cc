@@ -20,7 +20,7 @@
 	padding: 0 3rem;
 }
 
-.nav-links a {
+.nav-links * a {
 	margin: 0;
 	padding: 0 5px;
 	color: darkblue;
