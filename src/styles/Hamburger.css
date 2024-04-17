@@ -1,13 +1,13 @@
 .hamburger {
 	float: inline-start;
-	width: min-content;
+	width: 32px;
 	padding: auto;
 	cursor: pointer;
 }
 
 .hamburger .line {
 	display: block;
-	width: 32px;
+	width: 100%;
 	height: 5px;
 	border-radius: 2px;
 	margin-bottom: 6px;

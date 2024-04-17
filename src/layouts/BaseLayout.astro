@@ -20,6 +20,8 @@ const { title, titleOverride } = Astro.props;
 
 	<body>
 		<Header title={`${title}`} />
-		<slot />
+		<div class="articles">
+			<slot />
+		</div>
 	</body>
 </html>

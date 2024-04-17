@@ -16,6 +16,11 @@ body {
 	box-sizing: border-box;
 }
 
+.articles {
+	position: absolute;
+	top: 19ch;
+}
+
 h2 {
 	font-size: 1.2rem;
 }
