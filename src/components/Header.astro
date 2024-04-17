@@ -1,6 +1,5 @@
 ---
 import Hamburger from "./Hamburger.tsx";
-import "../styles/Header.css";
 import "@fontsource/dotgothic16";
 
 export interface Props {
@@ -15,3 +14,15 @@ const { title } = Astro.props;
 		<Hamburger client:load />
 	</nav>
 </header>
+
+<style>
+	header {
+		height: 8rem;
+		width: 100%;
+	}
+
+	h1 {
+		margin: 1rem 0;
+		font-size: 2rem;
+	}
+</style>
