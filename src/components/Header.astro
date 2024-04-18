@@ -1,13 +1,14 @@
 ---
-import Hamburger from "./Hamburger.tsx";
+import Navigation from "./navigation/Navigation.tsx";
 import "@fontsource/dotgothic16";
 import { Icon } from "astro-icon/components";
 
 export interface Props {
 	title: string;
 	iconName: string;
+	root?: boolean;
 }
-const { title, iconName } = Astro.props;
+const { title, iconName, root } = Astro.props;
 ---
 
 <header>
@@ -16,7 +17,13 @@ const { title, iconName } = Astro.props;
 		{title}
 	</h1>
 	<nav>
-		<Hamburger client:load />
+		<Navigation client:idle root={root ? "true" : "false"}>
+			<Icon
+				name="material-symbols:chevron-right"
+				size={30.5}
+				slot="expandButton"
+			/>
+		</Navigation>
 	</nav>
 </header>
 
@@ -24,7 +31,7 @@ const { title, iconName } = Astro.props;
 	header {
 		height: max-content;
 		width: 100%;
-		margin-bottom: 10ch;
+		margin-bottom: 9ch;
 	}
 
 	header nav {

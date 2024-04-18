@@ -5,9 +5,10 @@ import "../styles/global.css";
 export interface Props {
 	title: string;
 	titleOverride?: boolean;
-	iconName: string;
+	iconName?: string;
+	root?: boolean;
 }
-const { title, titleOverride, iconName } = Astro.props;
+const { title, titleOverride, iconName, root } = Astro.props;
 ---
 
 <html>
@@ -20,7 +21,7 @@ const { title, titleOverride, iconName } = Astro.props;
 	</head>
 
 	<body>
-		<Header title={title} iconName={iconName} />
+		<Header title={title} iconName={iconName || "man-walking"} {root} />
 		<main>
 			<slot />
 		</main>
