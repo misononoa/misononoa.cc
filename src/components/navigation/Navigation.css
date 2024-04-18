@@ -36,8 +36,6 @@
 	margin: 0;
 }
 
-.hidden {
-	position: absolute;
-	top: 0px;
-	display: none;
+.close * {
+	transform: scale(-1, 1);
 }

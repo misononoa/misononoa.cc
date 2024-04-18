@@ -11,6 +11,17 @@ body {
 	font-family: "dotgothic16";
 }
 
+main {
+	position: relative;
+	top: 1ch;
+}
+
+aside {
+	margin: 2rem auto;
+	font-size: smaller;
+	color: #474747;
+}
+
 * {
 	box-sizing: border-box;
 }

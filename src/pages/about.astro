@@ -2,8 +2,19 @@
 import "../styles/global.css";
 
 import BaseLayout from "../layouts/BaseLayout.astro";
+import MyContacts from "../components/MyContacts.astro";
 ---
 
 <BaseLayout title="about_me" iconName="four-leaf-clover">
-	misononoaです。日本に住んでます。
+	<p>misononoaです。日本に住んでます。</p>
+	<MyContacts />
+	<aside>
+		<h3>このサイトに使用されている著作物</h3>
+		<ul>
+			<li>Material Symbols by Google</li>
+			<li>Fluent Emoji Flat by Microsoft Corporation</li>
+			<li>Astro by Astro Contributors</li>
+			<li>React by Meta Platforms, Inc. and affiliates</li>
+		</ul>
+	</aside>
 </BaseLayout>

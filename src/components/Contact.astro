@@ -1,11 +1,15 @@
 ---
 export interface Props {
 	fqdn: string;
-	username: string;
+	path?: string;
+	name: string;
 	text: string;
 }
 
-const { fqdn, username, text } = Astro.props;
+const { fqdn, path, name, text } = Astro.props;
+const display = text.toLowerCase().match("misskey") ? text + "🍀" : text;
+const locator: string =
+	`https://${fqdn}/` + (path !== undefined ? `${path}/${name}` : `@${name}`);
 ---
 
-<p><a href={`https://${fqdn}/@${username}`}>{text}</a></p>
+<p><a href={locator}>{display}</a></p>

@@ -17,13 +17,7 @@ const { title, iconName, root } = Astro.props;
 		{title}
 	</h1>
 	<nav>
-		<Navigation client:idle root={root ? "true" : "false"}>
-			<Icon
-				name="material-symbols:chevron-right"
-				size={30.5}
-				slot="expandButton"
-			/>
-		</Navigation>
+		<Navigation client:idle root={root ? "true" : "false"} />
 	</nav>
 </header>
 

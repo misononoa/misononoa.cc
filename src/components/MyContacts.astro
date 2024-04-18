@@ -3,9 +3,17 @@ import Contact from "./Contact.astro";
 ---
 
 <div class="contacts">
-	<h2>ご連絡先</h2>
-	<Contact fqdn="x.com" username="misononoa" text="X" />
-	<Contact fqdn="threads.net" username="misononoa" text="Threads" />
-	<Contact fqdn="msky.misononoa.cc" username="misononoa" text="misskey" />
+	<h3>ごれんらく</h3>
+	<Contact fqdn="msky.misononoa.cc" name="misononoa" text="Misskey" />
+	<Contact fqdn="x.com" name="misononoa" text="X" />
+	<Contact fqdn="threads.net" name="misononoa" text="Threads" />
+	<Contact fqdn="bsky.app" path="profile" name="misononoa.cc" text="BlueSky" />
 	<slot />
 </div>
+
+<style>
+	.contacts {
+		position: relative;
+		top: 2ch;
+	}
+</style>
