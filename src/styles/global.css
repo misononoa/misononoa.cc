@@ -1,6 +1,6 @@
 html {
 	background-color: #f1f5f9;
-	font-family: sans-serif;
+	font-family: "dotgothic16";
 }
 
 body {
@@ -8,32 +8,12 @@ body {
 	max-width: 80ch;
 	padding: 1rem;
 	line-height: 1.5;
-	font-family: "dotgothic16";
-}
-
-main {
-	position: relative;
-	top: 1ch;
-}
-
-aside {
-	margin: 2rem auto;
-	font-size: smaller;
-	color: #474747;
-}
-
-* {
-	box-sizing: border-box;
 }
 
 @media screen and (max-width: 600px) {
 	body {
 		margin: 0 1rem;
 	}
-}
-
-h2 {
-	font-size: 1.2rem;
 }
 
 a {

@@ -7,9 +7,11 @@ export interface Props {
 }
 
 const { fqdn, path, name, text } = Astro.props;
-const display = text.toLowerCase().match("misskey") ? text + "🍀" : text;
+const isMisskey: boolean = text.toLowerCase().match("misskey") ? true : false;
+
 const locator: string =
-	`https://${fqdn}/` + (path !== undefined ? `${path}/${name}` : `@${name}`);
+	`https://${fqdn}/` + (path !== undefined ? `${path}/${name}` : `${name}`);
+const display: string = isMisskey ? text + "🍀" : text;
 ---
 
 <p><a href={locator}>{display}</a></p>

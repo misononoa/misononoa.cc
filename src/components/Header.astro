@@ -1,7 +1,7 @@
 ---
-import Navigation from "./navigation/Navigation.tsx";
 import "@fontsource/dotgothic16";
 import { Icon } from "astro-icon/components";
+import Navigation from "./navigation/Navigation.tsx";
 
 export interface Props {
 	title: string;
@@ -16,22 +16,14 @@ const { title, iconName, root } = Astro.props;
 		<Icon name={`fluent-emoji-flat:${iconName}`} size={40} height={20} />
 		{title}
 	</h1>
-	<nav>
-		<Navigation client:idle root={root ? "true" : "false"} />
-	</nav>
+	<Navigation client:idle root={root ? "true" : "false"} />
 </header>
 
 <style>
 	header {
 		height: max-content;
 		width: 100%;
-		margin-bottom: 9ch;
-	}
-
-	header nav {
-		display: flexbox;
-		position: fixed;
-		top: 12.5ch;
+		margin-bottom: 4ch;
 	}
 
 	h1 {
