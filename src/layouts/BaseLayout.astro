@@ -8,7 +8,7 @@ export interface Props {
 	iconName?: string;
 	root?: boolean;
 }
-const { title, titleOverride, iconName, root } = Astro.props;
+const { title, titleOverride, iconName = "man-walking", root } = Astro.props;
 ---
 
 <html>
@@ -20,7 +20,7 @@ const { title, titleOverride, iconName, root } = Astro.props;
 	</head>
 
 	<body>
-		<Header title={title} iconName={iconName || "man-walking"} {root} />
+		<Header title={title} iconName={iconName} {root} />
 		<main>
 			<slot />
 		</main>
