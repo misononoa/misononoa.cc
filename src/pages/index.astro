@@ -2,13 +2,7 @@
 import "../styles/global.css";
 
 import BaseLayout from "../layouts/BaseLayout.astro";
-
-const messages = [
-	"こんにちは！",
-	"トマトが好きです",
-	"口の中の皮を噛む癖があります",
-	"元気",
-];
+import Message from "../components/Message";
 ---
 
 <BaseLayout
@@ -17,5 +11,5 @@ const messages = [
 	iconName="flying-saucer"
 	root
 >
-	{messages[Math.round(Math.random() * messages.length)]}
+	<Message client:load />
 </BaseLayout>
