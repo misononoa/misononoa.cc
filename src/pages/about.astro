@@ -4,6 +4,13 @@ import "../styles/global.css";
 import MyContacts from "../components/MyContacts.astro";
 import NoteView from "../components/misskey-notes/NoteView";
 import BaseLayout from "../layouts/BaseLayout.astro";
+
+const credits = [
+	"Astro by Astro Contributors",
+	"misskey.js by syuilo and other contributors",
+	"React by Meta Platforms, Inc. and affiliates",
+	"Fluent Emoji Flat by Microsoft Corporation",
+];
 ---
 
 <BaseLayout title="about_me" iconName="four-leaf-clover">
@@ -16,11 +23,9 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 	<MyContacts />
 
 	<aside>
-		<h2>このサイトに使用されている著作物</h2>
+		<h2>このサイトに使用した著作物</h2>
 		<ul>
-			<li>Fluent Emoji Flat by Microsoft Corporation</li>
-			<li>Astro by Astro Contributors</li>
-			<li>React by Meta Platforms, Inc. and affiliates</li>
+			{credits.map((text) => <li>{text}</li>)}
 		</ul>
 	</aside>
 </BaseLayout>
