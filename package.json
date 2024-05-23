@@ -11,18 +11,19 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.5.10",
-    "@astrojs/react": "^3.3.0",
-    "@fontsource/dotgothic16": "^5.0.18",
-    "@types/react": "^18.2.79",
-    "@types/react-dom": "^18.2.25",
-    "astro": "^4.6.1",
+    "@astrojs/react": "^3.3.4",
+    "@fontsource/dotgothic16": "^5.0.19",
+    "@types/react": "^18.3.2",
+    "@types/react-dom": "^18.3.0",
+    "astro": "^4.8.7",
     "astro-icon": "^1.1.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "misskey-js": "^2024.3.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "typescript": "^5.4.5"
   },
   "devDependencies": {
     "@iconify-json/fluent-emoji-flat": "^1.1.16",
-    "@iconify-json/material-symbols": "^1.1.78"
+    "@iconify-json/material-symbols": "^1.1.80"
   }
 }

@@ -1,0 +1,44 @@
+.noteview {
+	margin: 1ch 0;
+	scale: 95%;
+	display: flexbox;
+	float: right;
+}
+
+@media screen and (max-width: 600px) {
+	.noteview {
+		margin: 4ch 0;
+		scale: 100%;
+		float: none;
+	}
+}
+
+.noteview .title {
+	border-color: lightgray;
+	border-width: 2px 2px 0px 2px;
+	border-style: dashed;
+	white-space: nowrap;
+	width: min-content;
+	padding: 5px;
+	font-size: 105%;
+}
+
+.noteview table {
+	border-color: lightgray;
+	border-width: 2px;
+	border-style: dashed;
+	max-width: 40ch;
+}
+
+.noteview td {
+	margin: 0;
+	padding: 5px;
+}
+
+.noteview .date {
+	white-space: nowrap;
+}
+
+.noteview a {
+	color: black;
+}

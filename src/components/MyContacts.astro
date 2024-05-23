@@ -7,18 +7,13 @@ import Contact from "./Contact.astro";
 	<Contact fqdn="msky.misononoa.cc" name="@misononoa" text="Misskey" />
 	<Contact fqdn="x.com" name="@misononoa" text="X" />
 	<Contact fqdn="threads.net" name="@misononoa" text="Threads" />
-	<Contact
-		fqdn="bsky.app"
-		path="profile"
-		name="misononoa.cc"
-		text="BlueSky"
-	/>
-	<slot />
+	<Contact fqdn="bsky.app" path="profile" name="misononoa.cc" text="BlueSky" />
 </div>
 
 <style>
 	.contacts {
-		position: relative;
-		top: 2ch;
+		display: flexbox;
+		width: max-content;
+		margin: 3.5ch 0;
 	}
 </style>

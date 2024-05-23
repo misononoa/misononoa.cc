@@ -2,12 +2,19 @@
 import "../styles/global.css";
 
 import MyContacts from "../components/MyContacts.astro";
+import NoteView from "../components/misskey-notes/NoteView";
 import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
 <BaseLayout title="about_me" iconName="four-leaf-clover">
 	<p>misononoaです。日本に住んでます。</p>
+	<NoteView
+		client:idle
+		username="misononoa"
+		origin="https://msky.misononoa.cc"
+	/>
 	<MyContacts />
+
 	<aside>
 		<h2>このサイトに使用されている著作物</h2>
 		<ul>
@@ -19,10 +26,25 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 </BaseLayout>
 <style>
 	aside {
-		margin: 12ch auto;
+		position: relative;
+		width: 80ch;
+		margin: 15ch 0;
 		font-size: 75%;
 		color: gray;
 	}
+
+	@media screen and (max-width: 600px) {
+		aside {
+			margin: auto;
+		}
+	}
+
+	@media screen and (max-width: 450px) {
+		aside h2 {
+			font-size: medium;
+		}
+	}
+
 	aside ul {
 		font-size: 105%;
 	}

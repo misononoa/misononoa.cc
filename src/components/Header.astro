@@ -13,7 +13,7 @@ const { title, iconName, root } = Astro.props;
 
 <header>
 	<h1>
-		<Icon name={`fluent-emoji-flat:${iconName}`} size={40} height={20} />
+		<Icon name={`fluent-emoji-flat:${iconName}`} height={25} class="icon" />
 		{title}
 	</h1>
 	<Navigation client:idle root={root ? "true" : "false"} />
@@ -29,6 +29,10 @@ const { title, iconName, root } = Astro.props;
 	h1 {
 		margin: 1rem 0;
 		font-size: 2rem;
+	}
+
+	.icon {
+		scale: 150%;
 	}
 
 	@media screen and (max-width: 450px) {
