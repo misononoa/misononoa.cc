@@ -1,15 +1,14 @@
 ---
 import "../styles/global.css";
 import Header from "../components/Header.astro";
+import CommonHead from "../components/CommonHead.astro";
 
 const { title = "none", iconName = "man-walking" } = Astro.props.frontmatter;
 ---
 
 <html>
 	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
+		<CommonHead />
 		<title>{title + " - 🛸"}</title>
 	</head>
 
