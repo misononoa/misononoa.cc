@@ -1,16 +1,6 @@
 .noteview {
-	margin: 1ch 0;
-	scale: 95%;
-	display: flexbox;
-	float: right;
-}
-
-@media screen and (max-width: 600px) {
-	.noteview {
-		margin: 4ch 0;
-		scale: 100%;
-		float: none;
-	}
+	margin: 2ch 0;
+	max-width: 50ch;
 }
 
 .noteview .title {
@@ -20,14 +10,16 @@
 	white-space: nowrap;
 	width: min-content;
 	padding: 5px;
-	font-size: 105%;
 }
 
 .noteview table {
 	border-color: lightgray;
 	border-width: 2px;
 	border-style: dashed;
-	max-width: 40ch;
+}
+
+.noteview .time {
+	line-height: 100%;
 }
 
 .noteview td {

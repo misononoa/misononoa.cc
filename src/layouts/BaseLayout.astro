@@ -1,15 +1,23 @@
 ---
 import Header from "../components/Header.astro";
 import CommonHead from "../components/CommonHead.astro";
+import Footer from "../components/Footer.astro";
 import "../styles/global.css";
 
 export interface Props {
+	iconName?: string;
 	title: string;
 	titleOverride?: boolean;
-	iconName?: string;
+	displayAside?: boolean;
 	root?: boolean;
 }
-const { title, titleOverride, iconName = "man-walking", root } = Astro.props;
+const {
+	title,
+	titleOverride,
+	iconName = "man-walking",
+	root,
+	displayAside,
+} = Astro.props;
 ---
 
 <html>
@@ -20,8 +28,7 @@ const { title, titleOverride, iconName = "man-walking", root } = Astro.props;
 
 	<body>
 		<Header title={title} iconName={iconName} {root} />
-		<main>
-			<slot />
-		</main>
+		<slot />
+		<Footer displayAside={displayAside} />
 	</body>
 </html>
