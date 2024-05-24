@@ -2,10 +2,34 @@ import React from "react";
 import "./Navigation.css";
 
 export interface Props {
-	root?: string;
+	root?: boolean;
 }
 
-export default function Navigation(props: Props) {
+export interface LinkProps {
+	href: string;
+	text: string;
+}
+
+const linkprops: LinkProps[] = [
+	{
+		href: "/",
+		text: "Home",
+	},
+	{
+		href: "/articles",
+		text: "Articles",
+	},
+	{
+		href: "https://msky.misononoa.cc/",
+		text: "Misskey",
+	},
+	{
+		href: "/about",
+		text: "About_me",
+	},
+];
+
+export default function Navigation({ root }: Props) {
 	const toggleMenu = (function () {
 		const [state, setState] = React.useState(false);
 		return {
@@ -14,16 +38,13 @@ export default function Navigation(props: Props) {
 		};
 	})();
 
-	const isRoot: boolean = props.root === "true";
+	const navlinks: Array<JSX.Element> = linkprops.map((l) => (
+		<a key={l.href} href={l.href}>
+			{l.text}
+		</a>
+	));
 
-	const navlinks: Array<JSX.Element> = [
-		<a href="/">Home</a>,
-		<a href="/articles">Articles</a>,
-		<a href="https://msky.misononoa.cc/">Misskey</a>,
-		<a href="/about">About_me</a>,
-	];
-
-	if (isRoot) {
+	if (root) {
 		navlinks.reverse();
 	}
 

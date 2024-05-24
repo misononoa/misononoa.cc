@@ -16,7 +16,7 @@ const { title, iconName, root } = Astro.props;
 		<Icon name={`fluent-emoji-flat:${iconName}`} height={25} class="icon" />
 		{title}
 	</h1>
-	<Navigation client:idle root={root ? "true" : "false"} />
+	<Navigation client:idle root={root} />
 </header>
 
 <style>
