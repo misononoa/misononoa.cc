@@ -48,7 +48,7 @@ export default function NoteView(props: Props) {
 
 	return (
 		<div className="noteview">
-			<div className="title">{loaded ? "misononoaのようす" : "Loading..."}</div>
+			{loaded ? <div className="title">misononoaのようす</div> : ""}
 			<table>
 				<tbody>
 					{loaded ? (
