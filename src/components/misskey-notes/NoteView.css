@@ -18,17 +18,14 @@
 	border-style: dashed;
 }
 
-.noteview .time {
-	line-height: 100%;
+.noteview .datetime {
+	text-wrap: nowrap;
+	margin-left: 1ch;
 }
 
 .noteview td {
 	margin: 0;
 	padding: 5px;
-}
-
-.noteview .date {
-	white-space: nowrap;
 }
 
 .noteview a {

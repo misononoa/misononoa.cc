@@ -1,5 +1,6 @@
 import React from "react";
 import * as Misskey from "misskey-js";
+import { type Note, type User } from "misskey-js/entities.js";
 import "./NoteView.css";
 
 export interface Props {
@@ -8,56 +9,59 @@ export interface Props {
 }
 
 export default function NoteView(props: Props) {
+	// 準備
 	const client = new Misskey.api.APIClient({
 		origin: props.origin,
 	});
-	const [state, setState] = React.useState([]);
+	const [state, setState] = React.useState(Array<Note>);
 
+	// ノート取得
 	const getNote = async (username: string) => {
-		const userId: string = (
-			await client.request("users/show", {
-				username,
-			})
-		).id;
-		const response_notes = await client.request("users/notes", {
-			userId,
-			limit: 10,
+		const user: User = await client.request("users/show", {
+			username,
+		});
+		const response_notes: Array<Note> = await client.request("users/notes", {
+			userId: user.id,
+			limit: 50,
 		});
 		setState(response_notes);
 	};
-
 	React.useEffect(() => {
 		getNote(props.username);
 	}, []);
 
-	const padd = (num: number) => String(num).padStart(2, "0");
-	const notes = state
-		.filter(
-			(note) => Date.now() - 86400000 < new Date(note.createdAt).getTime()
-		)
-		.map((note) => {
-			const d = new Date(note.createdAt);
-			const formattedDate = `${padd(d.getDate())}日 ${padd(
-				d.getHours()
-			)}:${padd(d.getMinutes())}`;
-			return (
-				<tr key={note.id}>
-					<td valign="top" className="text">
-						<div>{formattedDate}</div>
-						<a href={`${props.origin}/notes/${note.id}`}>{note.text}</a>
-					</td>
-				</tr>
-			);
-		});
+	// ノートをフィルタ
+	const notes = state.filter(
+		(note: Note) => Date.now() - 86400000 < Date.parse(note.createdAt)
+	);
 
+	// mapするための準備
+	const pad = (num: number) => String(num).padStart(2, "0");
+	const formatDate = (datestr: string) => {
+		const date = new Date(datestr);
+		return `\
+		${pad(date.getDate())}日 ${pad(date.getHours())}:${pad(date.getMinutes())}`;
+	};
+
+	// ローディング表示のための判定
 	const loaded: boolean = notes.length > 0;
+
 	return (
 		<div className="noteview">
 			<div className="title">{loaded ? "misononoaのようす" : "Loading..."}</div>
 			<table>
 				<tbody>
 					{loaded ? (
-						notes
+						notes.map((note: Note) => {
+							return (
+								<tr key={note.id}>
+									<td valign="top" className="text">
+										<div className="datetime">{formatDate(note.createdAt)}</div>
+										<a href={`${props.origin}/notes/${note.id}`}>{note.text}</a>
+									</td>
+								</tr>
+							);
+						})
 					) : (
 						<tr>
 							<td>Loading... </td>
