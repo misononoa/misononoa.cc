@@ -30,7 +30,7 @@ const linkprops: LinkProps[] = [
 ];
 
 export default function Navigation({ root }: Props) {
-	const toggleMenu = (function () {
+	const toggleButton = (() => {
 		const [state, setState] = React.useState(false);
 		return {
 			isOpen: () => state,
@@ -50,17 +50,11 @@ export default function Navigation({ root }: Props) {
 
 	return (
 		<nav>
-			<span className="toggleButton" onClick={toggleMenu.toggle}>
-				{!toggleMenu.isOpen() ? <>+ </> : <>- </>}
+			<span className="toggleButton" onClick={toggleButton.toggle}>
+				{!toggleButton.isOpen() ? <>+</> : <>-</>}
 			</span>
 			{navlinks.shift()}
-			{toggleMenu.isOpen() && (
-				<>
-					{navlinks.map((context) => {
-						return context;
-					})}
-				</>
-			)}
+			{toggleButton.isOpen() && (<>{navlinks}</>)}
 		</nav>
 	);
 }
