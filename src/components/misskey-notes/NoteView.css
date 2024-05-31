@@ -1,11 +1,18 @@
 .noteview {
 	margin: 2ch 0;
-	max-width: 50ch;
+	max-width: 45ch;
+}
+
+@media screen and (max-width: 450px) {
+	.noteview {
+		max-width: none;
+		width: 100%;
+	}
 }
 
 .noteview .title {
 	border-color: lightgray;
-	border-width: 2px 2px 0px 2px;
+	border-width: 2px 2px 0 2px;
 	border-style: dashed;
 	white-space: nowrap;
 	width: min-content;
@@ -18,14 +25,16 @@
 	border-style: dashed;
 }
 
-.noteview .datetime {
-	text-wrap: nowrap;
-	margin-left: 1ch;
+.noteview td {
+	padding: 10px;
 }
 
-.noteview td {
-	margin: 0;
-	padding: 5px;
+.noteview .datetime {
+	text-align: end;
+	font-size: small;
+	line-height: 100%;
+	color: hsl(0, 0%, 30%);
+	text-wrap: nowrap;
 }
 
 .noteview a {
