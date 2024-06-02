@@ -8,7 +8,7 @@ export interface Props {
 	username: string;
 }
 
-export default function NoteView({misskey_origin, username}: Props) {
+export default function NoteView({ misskey_origin, username }: Props) {
 	// 準備
 	const client = new Misskey.api.APIClient({
 		origin: misskey_origin,
@@ -30,13 +30,6 @@ export default function NoteView({misskey_origin, username}: Props) {
 	React.useEffect(() => {
 		getNote(username);
 	}, []);
-	
-	// ノートをフィルタ
-	const notes = state
-	.filter((note) => !(note.renote)) // リノートは通さない
-	.filter((note) => note.text.length < 50) // 長文ノートは見せません
-	.slice(0, 5) // 最新の5つだけ
-	;
 
 	// mapするための準備
 	// 日時表記
@@ -44,34 +37,43 @@ export default function NoteView({misskey_origin, username}: Props) {
 	const formatDate = (datestr: string) => {
 		const date = new Date(datestr);
 		return `\
-${pad(date.getMonth()+1)}/${pad(date.getDate())} ${pad(date.getHours())}:${pad(date.getMinutes())}`;
+${pad(date.getMonth() + 1)}/${pad(date.getDate())} \
+${pad(date.getHours())}:${pad(date.getMinutes())}`;
 	};
 
 	// ローディング表示のための判定
-	const loaded: boolean = notes.length > 0;
+	const loaded: boolean =
+		state !== null && state !== undefined && state.length > 0;
 
-	// 組み立て
+	const notes = loaded ? (
+		state
+			.filter((note) => !note.renote) // リノートは通さない
+			.slice(0, 5) // 最新の5つだけ
+			.map(
+				// 組み立て
+				(note: Note) => (
+					<tr key={note.id}>
+						<td valign="top">
+							<a className="text" href={`${misskey_origin}/notes/${note.id}`}>
+								<div>{note.text}</div>
+								<div>{note.files.map((file) => file.url)}</div>
+							</a>
+							<div className="datetime"> - {formatDate(note.createdAt)}</div>
+						</td>
+					</tr>
+				)
+			)
+	) : (
+		<tr>
+			<td>Loading... </td>
+		</tr>
+	);
+
 	return (
 		<div className="noteview">
 			{loaded && <div className="title">misononoaのようす</div>}
 			<table>
-				<tbody>
-					{loaded ? (
-						notes.map((note: Note) => (
-								<tr key={note.id}>
-									<td valign="top" className="text">
-										<a href={`${misskey_origin}/notes/${note.id}`}>{note.text || "error!"}</a>
-										<div className="datetime"> - {formatDate(note.createdAt)}</div>
-									</td>
-								</tr>
-							)
-						)
-					) : (
-						<tr>
-							<td>Loading... </td>
-						</tr>
-					)}
-				</tbody>
+				<tbody>{notes}</tbody>
 			</table>
 		</div>
 	);

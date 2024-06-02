@@ -37,6 +37,7 @@
 	text-wrap: nowrap;
 }
 
-.noteview a {
+.noteview .text {
 	color: black;
+	overflow-wrap: anywhere;
 }
