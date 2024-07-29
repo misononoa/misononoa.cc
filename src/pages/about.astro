@@ -1,27 +1,35 @@
 ---
 import "../styles/global.css";
 
-import MyContacts from "../components/contact/MyContacts.astro";
 import NoteView from "../components/misskey-notes/NoteView.tsx";
 import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
 <BaseLayout title="about_me" iconName="four-leaf-clover" displayAside>
-	<p>misononoaです。日本に住んでます。</p>
 	<main>
 		<NoteView
 			client:idle
 			username="misononoa"
 			origin="https://msky.misononoa.cc"
 		/>
-		<MyContacts />
+		<div class="introduction">
+			misononoaです。<br />
+			日本に住んでます。
+		</div>
 	</main>
 </BaseLayout>
 
 <style>
 	main {
 		display: flex;
-		flex-wrap: wrap;
+		flex-wrap: wrap-reverse;
+		align-items: baseline;
 		justify-content: left;
+	}
+	.introduction {
+		margin: 3ch;
+		overflow-wrap: break-word;
+		width: 200px;
+		height: min-content;
 	}
 </style>
