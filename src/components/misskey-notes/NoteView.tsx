@@ -39,7 +39,7 @@ export default function NoteView({ origin, username }: Props) {
 		// ユーザ情報からIDを使ってノートを取得
 		const response_notes: Array<Note> = await client.request("users/notes", {
 			userId: user.id,
-			sinceDate: Date.now() - (86400000 * 1), // 2日前までのノートを取ってくる
+			sinceDate: Date.now() - (86400000 * 2), // 2日前までのノートを取ってくる
 			limit: 20, // 最大20こ
 		});
 		setNotes(response_notes);
