@@ -2,34 +2,36 @@ import React from "react";
 import "./Navigation.css";
 
 export interface Props {
-	root?: boolean;
+	current?: string;
 }
 
 export interface LinkProps {
 	href: string;
-	text: string;
+	name: string;
+	wraptext?: string;
 }
 
 const linkprops: LinkProps[] = [
 	{
 		href: "/",
-		text: "Home",
-	},
-	{
-		href: "/articles",
-		text: "Articles",
-	},
-	{
-		href: "https://msky.misononoa.cc/",
-		text: "Misskey",
+		name: "misononoa.cc",
+		wraptext: "home",
 	},
 	{
 		href: "/about",
-		text: "About_me",
+		name: "about_me",
+	},
+	{
+		href: "/articles",
+		name: "articles",
+	},
+	{
+		href: "https://msky.misononoa.cc/",
+		name: "misskey",
 	},
 ];
 
-export default function Navigation({ root }: Props) {
+export default function Navigation({ current }: Props) {
 	const toggleButton = (() => {
 		const [state, setState] = React.useState(false);
 		return {
@@ -38,15 +40,13 @@ export default function Navigation({ root }: Props) {
 		};
 	})();
 
-	const navlinks: Array<JSX.Element> = linkprops.map((l) => (
-		<a key={l.href} href={l.href}>
-			{l.text}
-		</a>
-	));
-
-	if (root) {
-		navlinks.reverse();
-	}
+	const navlinks: Array<JSX.Element> = linkprops
+		.filter((linkprop) => linkprop.name !== current.toLowerCase())
+		.map((l) => (
+			<a key={l.href} href={l.href}>
+				{(l.wraptext || l.name).toUpperCase()}
+			</a>
+		));
 
 	return (
 		<nav>

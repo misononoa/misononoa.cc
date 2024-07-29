@@ -6,9 +6,8 @@ import Navigation from "./navigation/Navigation.tsx";
 export interface Props {
 	title: string;
 	iconName: string;
-	root?: boolean;
 }
-const { title, iconName, root } = Astro.props;
+const { title, iconName } = Astro.props;
 ---
 
 <header>
@@ -16,7 +15,7 @@ const { title, iconName, root } = Astro.props;
 		<Icon name={`fluent-emoji-flat:${iconName}`} height={25} class="icon" />
 		{title}
 	</h1>
-	<Navigation client:idle root={root} />
+	<Navigation client:idle current={title} />
 </header>
 
 <style>

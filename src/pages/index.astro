@@ -1,15 +1,10 @@
 ---
 import "../styles/global.css";
 
-import BaseLayout from "../layouts/BaseLayout.astro";
 import Message from "../components/Message";
+import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
-<BaseLayout
-	title="misononoaのページ"
-	titleOverride
-	iconName="flying-saucer"
-	root
->
+<BaseLayout title="misononoa.cc" titleOverride iconName="flying-saucer">
 	<Message client:load />
 </BaseLayout>
