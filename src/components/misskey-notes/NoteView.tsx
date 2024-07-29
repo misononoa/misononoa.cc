@@ -1,80 +1,82 @@
 import * as Misskey from "misskey-js";
 import { type Note, type User } from "misskey-js/entities.js";
 import React from "react";
+import formatDate from "../../utils/formatDate";
 import "./NoteView.css";
 
 export interface Props {
-	misskey_origin: string;
+	origin: string;
 	username: string;
 }
 
-export default function NoteView({ misskey_origin, username }: Props) {
+// これはこのコンポーネントでのノートの表示形式を決定している関数だよ
+const noteElement = (origin: string, note: Note) => {
+	return <tr key={note.id}>
+		<td valign="top">
+			<a className="text" href={`${origin}/notes/${note.id}`}>
+				<div>{note.text}</div>
+				<div>{note.files.map((file) => file.url)}</div>
+			</a>
+			<div className="datetime"> - {formatDate(note.createdAt)}</div>
+		</td>
+	</tr>
+};
+
+export default function NoteView({ origin, username }: Props) {
 	// 準備
 	const client = new Misskey.api.APIClient({
-		origin: misskey_origin,
+		origin,
 	});
-	const [state, setState] = React.useState(Array<Note>);
+	const [notes, setNotes] = React.useState(new Array<Note>);
+	const [loaded, setLoaded] = React.useState(false);
 
-	// ノート取得
+	// ユーザ名から最近のノートを取得する関数
 	const getNote = async (username: string) => {
+		// ユーザ名からユーザ情報を取得
 		const user: User = await client.request("users/show", {
 			username,
 		});
+		// ユーザ情報からIDを使ってノートを取得
 		const response_notes: Array<Note> = await client.request("users/notes", {
 			userId: user.id,
-			sinceDate: Date.now() - 86400000, // 1日前までのノートを取ってくる
+			sinceDate: Date.now() - (86400000 * 1), // 2日前までのノートを取ってくる
 			limit: 20, // 最大20こ
 		});
-		setState(response_notes);
+		setNotes(response_notes);
+		setLoaded(true); // 読み込み状態を完了にセット
 	};
+
+	// 上を呼び出してノートを取得
 	React.useEffect(() => {
 		getNote(username);
-	}, []);
+	});
 
-	// mapするための準備
-	// 日時表記
-	const pad = (num: number) => String(num).padStart(2, "0");
-	const formatDate = (datestr: string) => {
-		const date = new Date(datestr);
-		return `\
-${pad(date.getMonth() + 1)}/${pad(date.getDate())} \
-${pad(date.getHours())}:${pad(date.getMinutes())}`;
-	};
-
-	// ローディング表示のための判定
-	const loaded: boolean =
-		state !== null && state !== undefined && state.length > 0;
-
-	const notes = loaded ? (
-		state
-			.filter((note) => !note.renote) // リノートは通さない
-			.slice(0, 5) // 最新の5つだけ
-			.map(
-				// 組み立て
-				(note: Note) => (
-					<tr key={note.id}>
-						<td valign="top">
-							<a className="text" href={`${misskey_origin}/notes/${note.id}`}>
-								<div>{note.text}</div>
-								<div>{note.files.map((file) => file.url)}</div>
-							</a>
-							<div className="datetime"> - {formatDate(note.createdAt)}</div>
-						</td>
-					</tr>
-				)
-			)
-	) : (
-		<tr>
-			<td>Loading... </td>
-		</tr>
-	);
 
 	return (
 		<div className="noteview">
-			{loaded && <div className="title">misononoaのようす</div>}
-			<table>
-				<tbody>{notes}</tbody>
-			</table>
+			{loaded ?
+				(<>
+					<div className="title">
+						misononoaのようす
+					</div>
+					<table>
+						<tbody>
+							{
+								notes.length > 0 ? // notesに要素があるときは
+									notes
+										.filter((note) => !note.renote) // renoteを除外して
+										.slice(0, 5) // 最新5こだけ取り出し
+										.reverse() // 順番を反転して
+										.map((note) => noteElement(origin, note)) : // Elementに整形
+									( // notesに要素がないときは
+										<tr><td>げんきがないみたい</td></tr> // これを出す
+									)
+							}
+						</tbody>
+					</table>
+				</>) :
+				<div className="loading">Loading...</div>
+			}
 		</div>
 	);
 }

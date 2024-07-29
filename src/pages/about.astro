@@ -2,7 +2,7 @@
 import "../styles/global.css";
 
 import MyContacts from "../components/contact/MyContacts.astro";
-import NoteView from "../components/misskey-notes/NoteView";
+import NoteView from "../components/misskey-notes/NoteView.tsx";
 import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
@@ -12,7 +12,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 		<NoteView
 			client:idle
 			username="misononoa"
-			misskey_origin="https://msky.misononoa.cc"
+			origin="https://msky.misononoa.cc"
 		/>
 		<MyContacts />
 	</main>
