@@ -22,7 +22,7 @@ const noteElement = (origin: string, note: Note) => {
 	</tr>
 };
 
-export default function NoteView({ origin, username }: Props) {
+export default function ({ origin, username }: Props) {
 	// 準備
 	const client = new Misskey.api.APIClient({
 		origin,

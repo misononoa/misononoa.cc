@@ -3,8 +3,8 @@ export interface Props {
 	displayAside?: boolean;
 }
 
+import Contact from "./Contact.astro";
 import ToggleList from "./toggle-list/ToggleList";
-import Contact from "./contact/Contact.astro";
 
 const creditsStr = [
 	"Astro by Astro Contributors",
@@ -33,7 +33,11 @@ const { displayAside } = Astro.props;
 							<Contact fqdn="x.com" name="@misononoa" text="X" />
 						</li>
 						<li class="item">
-							<Contact fqdn="threads.net" name="@misononoa" text="Threads" />
+							<Contact
+								fqdn="threads.net"
+								name="@misononoa"
+								text="Threads"
+							/>
 						</li>
 						<li class="item">
 							<Contact
