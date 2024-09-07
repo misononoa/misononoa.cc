@@ -1,0 +1,23 @@
+// Chat-GPTで生成(2024-09-07)
+{
+	"name": "Astro.js Development Environment",
+	"build": {
+		"dockerfile": "Dockerfile",
+		"context": "."
+	},
+	"customizations": {
+		"vscode": {
+			"settings": {
+				"terminal.integrated.shell.linux": "/bin/bash"
+			},
+			"extensions": [
+				"astro-build.astro-vscode", // Astro.js用のVSCode拡張機能
+				"esbenp.prettier-vscode", // Prettierコードフォーマッター
+				"dbaeumer.vscode-eslint", // ESLint
+				"ms-azuretools.vscode-docker" // Docker
+			]
+		}
+	},
+	"postCreateCommand": "pnpm install",
+	"remoteUser": "node"
+}
