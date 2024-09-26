@@ -1,4 +1,3 @@
-import netlify from "@astrojs/netlify";
 import react from "@astrojs/react";
 import { defineConfig } from "astro/config";
 
@@ -8,8 +7,8 @@ import cloudflare from "@astrojs/cloudflare";
 
 // https://astro.build/config
 export default defineConfig({
-  output: "server",
-  adapter: cloudflare(),
-  // site: "https://misononoa.cc",
-  integrations: [react(), icon()]
+	output: "server",
+	adapter: cloudflare(),
+	// site: "https://misononoa.cc",
+	integrations: [react(), icon()],
 });
