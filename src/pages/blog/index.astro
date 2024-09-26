@@ -1,0 +1,40 @@
+---
+import "../../styles/global.css";
+
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getBlogs } from "../../lib/microcms";
+import formatDate from "../../utils/formatDate";
+
+const response = await getBlogs({fields: ["id", "title", "publishedAt"]});
+const contents: Array<any> = response.contents;
+---
+
+<BaseLayout title="blog">
+	<main>
+		<ul>
+			{
+			contents
+				.sort((a, b) => {
+					const aDate = new Date(a.publishedAt);
+					const bDate = new Date(b.publishedAt);
+					return bDate.getTime() - aDate.getTime()
+				})
+				.map((content) => (
+				<li>
+					<span>
+						<a href={`blog/${content.id}`}>{content.title} </a>
+						<span class="date"> {formatDate(content.publishedAt)}</span>
+					</span>
+				</li>
+			))
+			}
+		</ul>
+	</main>
+</BaseLayout>
+
+<style>
+	.date {
+		color: gray;
+		font-size: 75%;
+	}
+</style>

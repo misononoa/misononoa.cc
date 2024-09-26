@@ -22,8 +22,8 @@ const linkprops: LinkProps[] = [
 		name: "about_me",
 	},
 	{
-		href: "/articles",
-		name: "articles",
+		href: "/blog",
+		name: "blog",
 	},
 	{
 		href: "https://msky.misononoa.cc/",
