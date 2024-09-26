@@ -11,19 +11,20 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.8.3",
-    "@astrojs/netlify": "^5.4.0",
-    "@astrojs/react": "^3.6.0",
-    "@fontsource/dotgothic16": "^5.0.19",
-    "@types/react": "^18.3.3",
+    "@astrojs/netlify": "^5.5.3",
+    "@astrojs/react": "^3.6.2",
+    "@fontsource/dotgothic16": "^5.1.0",
+    "@types/react": "^18.3.9",
     "@types/react-dom": "^18.3.0",
-    "astro": "^4.12.2",
-    "astro-icon": "^1.1.0",
-    "misskey-js": "^2024.5.0",
+    "astro": "^4.15.9",
+    "astro-icon": "^1.1.1",
+    "misskey-js": "^2024.8.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "typescript": "^5.5.4"
+    "typescript": "^5.6.2"
   },
   "devDependencies": {
-    "@iconify-json/fluent-emoji-flat": "^1.1.16"
-  }
+    "@iconify-json/fluent-emoji-flat": "^1.2.0"
+  },
+  "packageManager": "pnpm@9.9.0+sha512.60c18acd138bff695d339be6ad13f7e936eea6745660d4cc4a776d5247c540d0edee1a563695c183a66eb917ef88f2b4feb1fc25f32a7adcadc7aaf3438e99c1"
 }
