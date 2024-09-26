@@ -1,6 +1,5 @@
-// Chat-GPTで生成(2024-09-07)
 {
-	"name": "Astro.js Development Environment",
+	"name": "misononoa.cc",
 	"build": {
 		"dockerfile": "Dockerfile",
 		"context": "."
@@ -18,6 +17,9 @@
 			]
 		}
 	},
+	"forwardPorts": [
+		4321
+	],
 	"postCreateCommand": "pnpm install",
 	"remoteUser": "node"
 }
