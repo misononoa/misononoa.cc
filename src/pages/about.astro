@@ -1,17 +1,11 @@
 ---
 import "../styles/global.css";
 
-import NoteView from "../components/misskey-notes/NoteView.tsx";
 import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
 <BaseLayout title="about_me" iconName="four-leaf-clover" displayAside>
 	<main>
-		<NoteView
-			client:idle
-			username="misononoa"
-			origin="https://msky.misononoa.cc"
-		/>
 		<div class="introduction">
 			misononoaです。<br />
 			日本に住んでます。
@@ -27,9 +21,8 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 		justify-content: left;
 	}
 	.introduction {
-		margin: 3ch;
+		margin: 3ch 1ch;
 		overflow-wrap: break-word;
-		width: 200px;
 		height: min-content;
 	}
 
