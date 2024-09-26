@@ -3,12 +3,14 @@ import { defineConfig } from "astro/config";
 
 import icon from "astro-icon";
 
-import cloudflare from "@astrojs/cloudflare";
+import vercel from "@astrojs/vercel/serverless";
 
 // https://astro.build/config
 export default defineConfig({
-	output: "server",
-	adapter: cloudflare(),
-	// site: "https://misononoa.cc",
-	integrations: [react(), icon()],
+  output: "server",
+
+  // site: "https://misononoa.cc",
+  integrations: [react(), icon()],
+
+  adapter: vercel(),
 });
