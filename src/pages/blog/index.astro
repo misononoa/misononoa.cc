@@ -7,35 +7,37 @@ import { getBlogs } from "../../lib/microcms";
 import formatDate from "../../utils/formatDate";
 
 const response = await getBlogs({fields: ["id", "title", "publishedAt"]});
-const contents: Array<any> = response.contents;
+const dateComparator = (a, b) => {
+	return new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
+}
+const contents: Array<any> = response.contents.sort(dateComparator);
 ---
 
 <BaseLayout title="blog" iconName="newspaper">
 	<Main>
-		<ul>
-			{
-			contents
-				.sort((a, b) => {
-					const aDate = new Date(a.publishedAt);
-					const bDate = new Date(b.publishedAt);
-					return bDate.getTime() - aDate.getTime()
-				})
-				.map((content) => (
-				<li>
-					<span>
-						<a href={`blog/${content.id}`}>{content.title} </a>
-						<span class="date"> {formatDate(content.publishedAt)}</span>
-					</span>
-				</li>
-			))
-			}
-		</ul>
+		<table>
+			<tbody>
+				{
+				contents
+					.map((content) => (
+					<tr>
+							<td><a href={`blog/${content.id}`}>{content.title} </a></td>
+							<td class="date">{formatDate(content.publishedAt)}</td>
+					</tr>
+				))
+				}
+			</tbody>
+		</table>
 	</Main>
 </BaseLayout>
 
 <style>
 	.date {
+		padding: 5px 5px 5px 0;
 		color: gray;
-		font-size: 75%;
+		font-size: 70%;
+	}
+	tr * {
+		text-wrap: nowrap;
 	}
 </style>
