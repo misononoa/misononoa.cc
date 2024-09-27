@@ -6,27 +6,25 @@ import "../styles/global.css";
 
 export interface Props {
 	iconName?: string;
-	title: string;
-	titleOverride?: boolean;
-	displayAside?: boolean;
+	title?: string;
+	displayFooter?: boolean;
 }
 const {
-	title,
-	titleOverride,
+	title = "misononoa.cc",
 	iconName = "man-walking",
-	displayAside,
+	displayFooter,
 } = Astro.props;
 ---
 
 <html>
-	<head>
-		<CommonHead />
-		<title>{titleOverride ? title : title + " - 🛸"}</title>
-	</head>
+	<CommonHead iconName={iconName} title={title} />
 
 	<body>
 		<Header title={title} iconName={iconName} />
 		<slot />
-		<Footer displayAside={displayAside} />
+		{
+		displayFooter && 
+		<Footer />
+		}
 	</body>
 </html>

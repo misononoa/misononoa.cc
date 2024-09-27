@@ -1,12 +1,20 @@
 ---
 import "../styles/global.css";
 
+import Main from "../components/Main.astro";
 import Message from "../components/Message";
 import BaseLayout from "../layouts/BaseLayout.astro";
+
+const messages: Array<string> = [
+		"こんにちは！",
+		"トマトが好きです",
+		"口の中の皮を噛む癖があります",
+		"元気",
+];
 ---
 
-<BaseLayout title="misononoa.cc" titleOverride iconName="flying-saucer">
-	<main>
-		<Message client:load />
-	</main>
+<BaseLayout iconName="flying-saucer">
+	<Main>
+		<Message client:load messages={messages} />
+	</Main>
 </BaseLayout>

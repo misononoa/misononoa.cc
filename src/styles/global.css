@@ -5,14 +5,14 @@ html {
 
 body {
 	margin: 0 auto;
-	max-width: 80ch;
+	max-width: 70ch;
 	height: 100%;
 	line-height: 1.5;
 }
 
 @media screen and (max-width: 600px) {
 	body {
-		margin: 0 2ch;
+		margin: 3ch;
 	}
 }
 

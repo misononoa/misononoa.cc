@@ -1,6 +1,7 @@
 ---
 import "../../styles/global.css";
 
+import Main from "../../components/Main.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { getBlogs } from "../../lib/microcms";
 import formatDate from "../../utils/formatDate";
@@ -9,8 +10,8 @@ const response = await getBlogs({fields: ["id", "title", "publishedAt"]});
 const contents: Array<any> = response.contents;
 ---
 
-<BaseLayout title="blog">
-	<main>
+<BaseLayout title="blog" iconName="newspaper">
+	<Main>
 		<ul>
 			{
 			contents
@@ -29,7 +30,7 @@ const contents: Array<any> = response.contents;
 			))
 			}
 		</ul>
-	</main>
+	</Main>
 </BaseLayout>
 
 <style>
