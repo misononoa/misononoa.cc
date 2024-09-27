@@ -1,8 +1,18 @@
 ---
 import { ViewTransitions } from "astro:transitions";
+export interface Props {
+	iconName?: string;
+	title: string;
+}
+const { iconName = "man-walking", title } = Astro.props;
 ---
 
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width" />
-<meta name="generator" content={Astro.generator} />
-<ViewTransitions />
+<head>
+	<meta charset="utf-8" />
+	<link rel="icon" href={`https://cdn.jsdelivr.net/npm/fluentui-emoji@latest/icons/flat/${iconName}.svg`}>
+	<meta name="viewport" content="width=device-width" />
+	<meta name="generator" content={Astro.generator} />
+	<title>{title}</title>
+	<ViewTransitions />
+</head>
+

@@ -1,25 +1,19 @@
 ---
-import "../styles/global.css";
-
+import Main from "../components/Main.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import "../styles/global.css";
 ---
 
-<BaseLayout title="about_me" iconName="four-leaf-clover" displayAside>
-	<main>
+<BaseLayout title="about_me" iconName="four-leaf-clover" displayFooter>
+	<Main>
 		<div class="introduction">
 			misononoaです。<br />
 			日本に住んでます。
 		</div>
-	</main>
+	</Main>
 </BaseLayout>
 
 <style>
-	main {
-		display: flex;
-		flex-wrap: wrap-reverse;
-		align-items: baseline;
-		justify-content: left;
-	}
 	.introduction {
 		margin: 3ch 1ch;
 		overflow-wrap: break-word;
