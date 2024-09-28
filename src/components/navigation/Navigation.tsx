@@ -3,35 +3,15 @@ import "./Navigation.css";
 
 export interface Props {
 	current?: string;
+	links: Array<LinkProp>;
 }
 
-export interface LinkProps {
+export type LinkProp = {
 	href: string;
 	name: string;
-	wraptext?: string;
 }
 
-const linkprops: LinkProps[] = [
-	{
-		href: "/",
-		name: "misononoa.cc",
-		wraptext: "home",
-	},
-	{
-		href: "/about",
-		name: "about_me",
-	},
-	{
-		href: "/blog",
-		name: "blog",
-	},
-	{
-		href: "https://msky.misononoa.cc/",
-		name: "misskey",
-	},
-];
-
-export default function Navigation({ current }: Props) {
+export default function Navigation({ current, links }: Props) {
 	const toggleButton = (() => {
 		const [state, setState] = React.useState(false);
 		return {
@@ -40,11 +20,11 @@ export default function Navigation({ current }: Props) {
 		};
 	})();
 
-	const navlinks: Array<JSX.Element> = linkprops
+	const linkele: Array<JSX.Element> = links
 		.filter((linkprop) => linkprop.name !== current.toLowerCase())
 		.map((l) => (
 			<a key={l.href} href={l.href}>
-				{(l.wraptext || l.name).toUpperCase()}
+				{l.name.toUpperCase()}
 			</a>
 		));
 
@@ -53,8 +33,8 @@ export default function Navigation({ current }: Props) {
 			<span className="toggleButton" onClick={toggleButton.toggle}>
 				{!toggleButton.isOpen() ? <>+</> : <>-</>}
 			</span>
-			{navlinks.shift()}
-			{toggleButton.isOpen() && (<>{navlinks}</>)}
+			{linkele.shift()}
+			{toggleButton.isOpen() && (<>{linkele}</>)}
 		</nav>
 	);
 }
