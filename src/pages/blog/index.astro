@@ -4,7 +4,6 @@ import "../../styles/global.css";
 import Main from "../../components/Main.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { getBlogs } from "../../lib/microcms";
-import formatDate from "../../utils/formatDate";
 
 const response = await getBlogs({fields: ["id", "title", "publishedAt"]});
 const dateComparator = (a, b) => {
@@ -18,13 +17,17 @@ const contents: Array<any> = response.contents.sort(dateComparator);
 		<table>
 			<tbody>
 				{
-				contents
-					.map((content) => (
-					<tr>
-							<td><a href={`blog/${content.id}`}>{content.title} </a></td>
-							<td class="date">{formatDate(content.publishedAt)}</td>
-					</tr>
-				))
+				contents.map((content) => {
+					const datestr: string = new Date(content.publishedAt)
+											.toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" });
+											
+					return (
+						<tr>
+								<td><a href={`blog/${content.id}`}>{content.title} </a></td>
+								<td class="date">{datestr}</td>
+						</tr>
+					)
+				})
 				}
 			</tbody>
 		</table>

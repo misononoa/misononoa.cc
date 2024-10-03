@@ -1,7 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { getBlogDetail, getBlogs } from "../../lib/microcms";
-import formatDate from "../../utils/formatDate";
 
 export async function getStaticPaths(){
 	const response = await getBlogs({fields: ["id"]});
@@ -12,24 +11,41 @@ export async function getStaticPaths(){
 		}))
 };
 
+type FieldElement = {
+	label: string;
+	value: Date | string;
+}
+
 const { blogId } = Astro.params;
 const blog = await getBlogDetail(blogId as string);
+
+const fields = new Array<FieldElement>;
+for (let k in blog) {
+	const d: number = Date.parse(blog[k]);
+	if (!isNaN(d) &&
+		fields.map((field) => field.value)
+				 .filter((f): f is Date => true)
+				 .every((f) => f.getTime() !== d)) 
+				{
+		fields.push({ label: k, value: new Date(d)});
+	}
+}
 ---
 
 <BaseLayout title={blog.title}>
 	<main>
 		<table>
 			<tbody class="fields">
-				<tr>
-					<td>publishedAt:</td>
-					<td>{formatDate(blog.publishedAt)}</td>
-				</tr>
 				{
-				blog.publishedAt !== blog.updatedAt && 
-				<tr>
-					<td>updatedAt:</td>
-					<td>{formatDate(blog.updatedAt)}</td>
-				</tr>
+					fields.map((e) => {
+						const tr = (
+							<tr>
+								<td>{e.label}: </td>
+								<td>{e.value.toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" })}</td>
+							</tr>
+						)
+						return tr;
+					})
 				}
 			</tbody>
 		</table>

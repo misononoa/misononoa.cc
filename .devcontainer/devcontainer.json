@@ -10,10 +10,9 @@
 				"terminal.integrated.shell.linux": "/bin/bash"
 			},
 			"extensions": [
-				"astro-build.astro-vscode", // Astro.js用のVSCode拡張機能
-				"esbenp.prettier-vscode", // Prettierコードフォーマッター
-				"dbaeumer.vscode-eslint", // ESLint
-				"ms-azuretools.vscode-docker" // Docker
+				"astro-build.astro-vscode",
+				"esbenp.prettier-vscode",
+				"dbaeumer.vscode-eslint"
 			]
 		}
 	},
