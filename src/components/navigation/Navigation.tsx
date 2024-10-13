@@ -9,7 +9,7 @@ export interface Props {
 export type LinkProp = {
 	href: string;
 	name: string;
-}
+};
 
 export default function Navigation({ current, links }: Props) {
 	const toggleButton = (() => {
@@ -24,7 +24,7 @@ export default function Navigation({ current, links }: Props) {
 		.filter((linkprop) => linkprop.name !== current.toLowerCase())
 		.map((l) => (
 			<a key={l.href} href={l.href}>
-				{l.name.toUpperCase()}
+				{l.href === "/" ? "TOP" : l.name.toUpperCase()}
 			</a>
 		));
 
@@ -34,7 +34,7 @@ export default function Navigation({ current, links }: Props) {
 				{!toggleButton.isOpen() ? <>+</> : <>-</>}
 			</span>
 			{linkele.shift()}
-			{toggleButton.isOpen() && (<>{linkele}</>)}
+			{toggleButton.isOpen() && <>{linkele}</>}
 		</nav>
 	);
 }

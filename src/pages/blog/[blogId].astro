@@ -2,32 +2,32 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { getBlogDetail, getBlogs } from "../../lib/microcms";
 
-export async function getStaticPaths(){
-	const response = await getBlogs({fields: ["id"]});
+export const prerender = true;
+export async function getStaticPaths() {
+	const response = await getBlogs({ fields: ["id"] });
 	return response.contents.map((content) => ({
-			params: {
-				blogId: content.id,
-			},
-		}))
-};
+		params: {
+			blogId: content.id,
+		},
+	}));
+}
 
 type FieldElement = {
 	label: string;
-	value: Date | string;
-}
+	value: Date;
+};
 
 const { blogId } = Astro.params;
 const blog = await getBlogDetail(blogId as string);
 
-const fields = new Array<FieldElement>;
+const fields = new Array<FieldElement>();
 for (let k in blog) {
 	const d: number = Date.parse(blog[k]);
-	if (!isNaN(d) &&
-		fields.map((field) => field.value)
-				 .filter((f): f is Date => true)
-				 .every((f) => f.getTime() !== d)) 
-				{
-		fields.push({ label: k, value: new Date(d)});
+	if (
+		!isNaN(d) &&
+		fields.map((field) => field.value).every((f) => f.getTime() !== d)
+	) {
+		fields.push({ label: k, value: new Date(d) });
 	}
 }
 ---
@@ -37,19 +37,25 @@ for (let k in blog) {
 		<table>
 			<tbody class="fields">
 				{
-					fields.map((e) => {
-						const tr = (
-							<tr>
-								<td>{e.label}: </td>
-								<td>{e.value.toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" })}</td>
-							</tr>
-						)
-						return tr;
-					})
+					fields
+						.sort((a, b) => a.value.getTime() - b.value.getTime())
+						.map((e) => {
+							const tr = (
+								<tr>
+									<td>{e.label}: </td>
+									<td>
+										{e.value.toLocaleString("ja-JP", {
+											timeZone: "Asia/Tokyo",
+										})}
+									</td>
+								</tr>
+							);
+							return tr;
+						})
 				}
 			</tbody>
 		</table>
-		<div set:html={blog.content}></div>
+		<div set:html={blog.content} />
 	</main>
 </BaseLayout>
 
