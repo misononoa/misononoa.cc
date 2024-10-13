@@ -7,13 +7,8 @@ export interface Props {
 export default function RandomMessage({ messages }: Props): JSX.Element {
 	const [text, setText] = React.useState("");
 	React.useEffect(() => {
-		const index = Math.floor(Math.random() * (messages.length - 1));
+		const index = Math.floor(Math.random() * messages.length);
 		setText(messages[index]);
 	});
-	return (
-		<>
-			{text}
-			<br />
-		</>
-	);
+	return <>{text}</>;
 }
