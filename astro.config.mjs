@@ -7,10 +7,8 @@ import vercel from "@astrojs/vercel/serverless";
 
 // https://astro.build/config
 export default defineConfig({
-  output: "server",
-
-  // site: "https://misononoa.cc",
-  integrations: [react(), icon()],
-
-  adapter: vercel(),
+    output: "server",
+    site: "https://misononoa.cc",
+    integrations: [react(), icon()],
+    adapter: vercel(),
 });
