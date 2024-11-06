@@ -1,22 +1,27 @@
 html {
-	background-color: #f1f5f9;
-	font-family: "dotgothic16";
+    background-color: #f1f5f9;
+    font-family: "dotgothic16";
 }
 
 body {
-	margin: 0 auto;
-	max-width: 70ch;
-	height: 100%;
-	line-height: 1.5;
+    margin: 0 auto;
+    max-width: 70ch;
+    height: 100%;
+    line-height: 1.5;
+}
+
+hr {
+    margin-top: 25px;
+    margin-bottom: 25px;
 }
 
 @media screen and (max-width: 600px) {
-	body {
-		margin: 3ch;
-	}
+    body {
+        margin: 3ch;
+    }
 }
 
 a {
-	color: darkblue;
-	text-decoration: none;
+    color: darkblue;
+    text-decoration: none;
 }

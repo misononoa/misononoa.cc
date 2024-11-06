@@ -16,7 +16,7 @@ export default function ToggleList({ listname, strs }: Props): JSX.Element {
 	})();
 
 	return (
-		<ul>
+		<ul className="toggle-list">
 			<summary onClick={toggleButton.toggle}>
 				{!toggleButton.isOpen() ? <>+{listname}</> : <>-{listname}</>}
 			</summary>
