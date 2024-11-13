@@ -20,5 +20,6 @@
 		4321
 	],
 	"postCreateCommand": "pnpm install",
-	"remoteUser": "node"
+	"remoteUser": "node",
+	"containerUser": "node"
 }
