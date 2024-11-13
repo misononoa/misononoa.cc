@@ -1,6 +1,6 @@
 FROM mcr.microsoft.com/devcontainers/typescript-node:dev-22
 
-WORKDIR /workspaces
+WORKDIR /workspace
 
 RUN corepack enable && corepack prepare pnpm --activate
 
