@@ -1,6 +1,6 @@
-FROM node:22-bookworm-slim
+FROM mcr.microsoft.com/devcontainers/typescript-node:dev-22
 
-WORKDIR /workspace
+WORKDIR /workspaces
 
 RUN corepack enable && corepack prepare pnpm --activate
 
