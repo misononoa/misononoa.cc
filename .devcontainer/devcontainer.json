@@ -7,7 +7,10 @@
 	"customizations": {
 		"vscode": {
 			"settings": {
-				"terminal.integrated.shell.linux": "/bin/bash"
+				"terminal.integrated.shell.linux": "/bin/zsh",
+				"editor.tabSize": 3,
+				"editor.tabCompletion": "on",
+				"prettier.tabWidth": 3
 			},
 			"extensions": [
 				"astro-build.astro-vscode",
