@@ -22,6 +22,9 @@
 	"forwardPorts": [
 		4321
 	],
+	"mounts": [
+		"source=${localWorkspaceFolderBasename}-node-modules,target=${containerWorkspaceFolder}/node_modules,type=volume"
+	],
 	"postCreateCommand": "pnpm install",
 	"remoteUser": "node",
 	"containerUser": "node"

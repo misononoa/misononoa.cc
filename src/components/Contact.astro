@@ -1,17 +1,45 @@
 ---
-export interface Props {
-	fqdn: string;
+export type AccountDetail = {
+	hostname: string;
 	path?: string;
-	name: string;
+	username: string;
 	text: string;
+};
+
+export interface Props {
+	accounts: Array<AccountDetail>;
 }
 
-const { fqdn, path, name, text } = Astro.props;
-const isMisskey: boolean = text.toLowerCase().match("misskey") ? true : false;
-
-const locator: string =
-	`https://${fqdn}/` + (path !== undefined ? `${path}/${name}` : `${name}`);
-const display: string = isMisskey ? text + "🍀" : text;
+const linkprops = Astro.props.accounts.map<[string, string]>((a) => [
+	`https://${a.hostname}/` +
+		(!!a.path ? `${a.path}/${a.username}` : `${a.username}`),
+	a.text.toLowerCase().match("misskey") ? a.text + "🍀" : a.text,
+]);
 ---
 
-<p><a href={locator}>{display}</a></p>
+<ul class="horizontal-list">
+	{
+		linkprops.map(([href, text]) => (
+			<li class="item">
+				<a href={href}>{text}</a>
+			</li>
+		))
+	}
+</ul>
+
+<style>
+	ul.horizontal-list {
+		width: 100%;
+		margin: 0;
+		padding: 0;
+		display: flex;
+		justify-content: space-between;
+		overflow-x: scroll;
+		scrollbar-width: none;
+		white-space: nowrap;
+	}
+	.item {
+		display: inline-block;
+		margin: 0 3px;
+	}
+</style>

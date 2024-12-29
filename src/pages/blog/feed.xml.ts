@@ -1,11 +1,10 @@
 import rss, { type RSSFeedItem } from "@astrojs/rss";
-import { getBlogs, type Blog } from "../lib/microcms";
+import { getBlogs, type Blog } from "../../lib/microcms";
 
 export const GET = async (context) => {
     const items: Array<RSSFeedItem> = (
-        await getBlogs({ fields: ["id", "title", "publishedAt"] })
+        await getBlogs({ fields: ["id", "title", "publishedAt"], limit: 20 })
     ).contents
-        .slice(0, 20)
         .map((post: Blog) => ({
             title: post.title,
             pubDate: post.publishedAt,

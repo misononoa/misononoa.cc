@@ -5,47 +5,35 @@ export interface Props {
 
 import Contact from "./Contact.astro";
 import ToggleList from "./toggle-list/ToggleList";
+import { type AccountDetail } from "./Contact.astro";
 
-const creditsStr = [
+const { displayCredits } = Astro.props;
+const accounts: Array<AccountDetail> = [
+    { hostname: "msky.misononoa.cc", username: "@misononoa", text: "Misskey" },
+    { hostname: "x.com", username: "@misononoa", text: "x.com" },
+    {
+        hostname: "bsky.app",
+        path: "profile",
+        username: "misononoa.cc",
+        text: "Bluesky",
+    },
+    { hostname: "mixi.social", username: "@misononoa", text: "Mixi2" },
+    { hostname: "www.threads.net", username: "@misononoa", text: "Threads" }
+];
+
+const credits: Array<string> = [
     "Astro by Astro Contributors",
     "misskey.js by syuilo and other contributors",
     "React by Meta Platforms, Inc. and affiliates",
     "Fluent Emoji Flat by Microsoft Corporation",
 ];
-const { displayCredits } = Astro.props;
 ---
 
 <footer>
     <aside>
         <div>
             <div style="margin: 0;">ごれんらく</div>
-            <ul class="horizontal-list">
-                <li class="item">
-                    <Contact
-                        fqdn="msky.misononoa.cc"
-                        name="@misononoa"
-                        text="Misskey"
-                    />
-                </li>
-                <li class="item">
-                    <Contact fqdn="x.com" name="@misononoa" text="X" />
-                </li>
-                <li class="item">
-                    <Contact
-                        fqdn="threads.net"
-                        name="@misononoa"
-                        text="Threads"
-                    />
-                </li>
-                <li class="item">
-                    <Contact
-                        fqdn="bsky.app"
-                        path="profile"
-                        name="misononoa.cc"
-                        text="Bluesky"
-                    />
-                </li>
-            </ul>
+            <Contact accounts={accounts} />
         </div>
         {
             displayCredits && (
@@ -53,7 +41,7 @@ const { displayCredits } = Astro.props;
                     <ToggleList
                         client:idle
                         listname="このサイトに使用した著作物"
-                        strs={creditsStr}
+                        strs={credits}
                     />
                 </div>
             )
@@ -68,20 +56,6 @@ const { displayCredits } = Astro.props;
         display: contents;
         font-size: 85%;
         color: gray;
-    }
-    ul.horizontal-list {
-        width: 100%;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        justify-content: space-between;
-        overflow-x: scroll;
-        scrollbar-width: none;
-        white-space: nowrap;
-    }
-    .item {
-        display: inline-block;
-        margin: 0 3px;
     }
     #credits {
         margin: 1ch 0;
