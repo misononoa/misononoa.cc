@@ -1,13 +1,13 @@
 ---
 export interface Props {
-    displayCredits?: boolean;
+    display?: boolean;
 }
 
 import Contact from "./Contact.astro";
 import ToggleList from "./toggle-list/ToggleList";
 import { type AccountDetail } from "./Contact.astro";
 
-const { displayCredits } = Astro.props;
+const display = Astro.props.display ? "block" : "none";
 const accounts: Array<AccountDetail> = [
     { hostname: "msky.misononoa.cc", username: "@misononoa", text: "Misskey" },
     { hostname: "x.com", username: "@misononoa", text: "x.com" },
@@ -18,7 +18,7 @@ const accounts: Array<AccountDetail> = [
         text: "Bluesky",
     },
     { hostname: "mixi.social", username: "@misononoa", text: "Mixi2" },
-    { hostname: "www.threads.net", username: "@misononoa", text: "Threads" }
+    { hostname: "www.threads.net", username: "@misononoa", text: "Threads" },
 ];
 
 const credits: Array<string> = [
@@ -35,21 +35,18 @@ const credits: Array<string> = [
             <div style="margin: 0;">ごれんらく</div>
             <Contact accounts={accounts} />
         </div>
-        {
-            displayCredits && (
-                <div id="credits">
-                    <ToggleList
-                        client:idle
-                        listname="このサイトに使用した著作物"
-                        strs={credits}
-                    />
-                </div>
-            )
-        }
+        <div id="credits">
+            <ToggleList
+                client:idle
+                listname="このサイトに使用した著作物"
+                strs={credits}
+            />
+        </div>
     </aside>
 </footer>
-<style>
+<style define:vars={{ display }}>
     footer {
+        display: var(--display);
         margin: 3ch;
     }
     aside {

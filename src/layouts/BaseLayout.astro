@@ -22,9 +22,6 @@ const {
 	<body>
 		<Header title={title} iconName={iconName} />
 		<slot />
-		{
-		displayFooter && 
-		<Footer />
-		}
+		<Footer display={displayFooter} />
 	</body>
 </html>
