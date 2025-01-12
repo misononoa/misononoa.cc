@@ -1,14 +1,14 @@
 ---
 import "@fontsource/dotgothic16";
 import { Icon } from "astro-icon/components";
-import Navigation, { type LinkProp } from "./navigation/Navigation.tsx";
+import Navigation, { type NavLink } from "./navigation/Navigation.tsx";
 
 export interface Props {
 	title: string;
 	iconName: string;
 }
 const { title, iconName } = Astro.props;
-const linkprops: Array<LinkProp> = [
+const linkprops: Array<NavLink> = [
 	{
 		href: "/",
 		name: "misononoa.cc",
@@ -16,6 +16,10 @@ const linkprops: Array<LinkProp> = [
 	{
 		href: "/about",
 		name: "about_me",
+	},
+	{
+		href: "/links",
+		name: "links",
 	},
 	{
 		href: "/blog",

@@ -1,0 +1,53 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ExternalLinks from "../components/ExternalLinks.astro";
+import { type ExtLink } from "../components/ExternalLinks.astro";
+
+const links: ExtLink[] = [
+	{
+		href: "https://yuinoid.neocities.org/",
+		img: "https://yuinoid.neocities.org/img/banner.gif",
+		img_alt: "100%health",
+		name: "いど子さん",
+		isMutual: true,
+	},
+	{
+		href: "https://t3tekuno.neocities.org",
+		img: "https://t3tekuno.neocities.org/images/banner.png",
+		img_alt: "てく野のサイト",
+		name: "てく野さん",
+	},
+	{
+		href: "https://little-girl-float.in/",
+		name: "蝉暮せせせさん",
+	},
+	{
+		href: "https://ongaku-modkey.hatenablog.com/",
+		name: "才ンガク毛ドキさん(エッコ チェンバー 地下)",
+	},
+	{
+		href: "https://1041uuu.jp/",
+		name: "豊井さん",
+	},
+	{
+		href: "https://yamaiga.com",
+		img: "https://yamaiga.com/banner2.gif",
+		img_alt: "山さ行かねが",
+		name: "ヨッキれんさん(山行が)",
+	},
+	{
+		href: "https://hccweb6.bai.ne.jp/yomogi-farm/",
+		img: "http://hccweb6.bai.ne.jp/yomogi-farm/img/banner/banner.jpg",
+		img_alt: "フランソワさんのよもぎ畑",
+		name: "蓬屋フランさん",
+	},
+];
+---
+
+<BaseLayout title="links" iconName="link" displayFooter>
+	<ExternalLinks links={links} />
+	<br />
+	<p style="font-size: small; color: gray;">
+		何かございましたら、恐れ入りますが下記アカウントまでご連絡ください。
+	</p>
+</BaseLayout>

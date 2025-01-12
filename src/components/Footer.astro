@@ -1,6 +1,6 @@
 ---
 export interface Props {
-    display?: boolean;
+	display?: boolean;
 }
 
 import Contact from "./Contact.astro";
@@ -9,64 +9,63 @@ import { type AccountDetail } from "./Contact.astro";
 
 const display = Astro.props.display ? "block" : "none";
 const accounts: Array<AccountDetail> = [
-    { hostname: "msky.misononoa.cc", username: "@misononoa", text: "Misskey" },
-    { hostname: "x.com", username: "@misononoa", text: "x.com" },
-    {
-        hostname: "bsky.app",
-        path: "profile",
-        username: "misononoa.cc",
-        text: "Bluesky",
-    },
-    { hostname: "mixi.social", username: "@misononoa", text: "Mixi2" },
-    { hostname: "www.threads.net", username: "@misononoa", text: "Threads" },
+	{ hostname: "msky.misononoa.cc", username: "@misononoa", text: "Misskey" },
+	{ hostname: "x.com", username: "@misononoa", text: "x.com" },
+	{
+		hostname: "bsky.app",
+		path: "profile",
+		username: "misononoa.cc",
+		text: "Bluesky",
+	},
+	{ hostname: "mixi.social", username: "@misononoa", text: "Mixi2" },
+	{ hostname: "www.threads.net", username: "@misononoa", text: "Threads" },
 ];
 
 const credits: Array<string> = [
-    "Astro by Astro Contributors",
-    "misskey.js by syuilo and other contributors",
-    "React by Meta Platforms, Inc. and affiliates",
-    "Fluent Emoji Flat by Microsoft Corporation",
+	"Astro by Astro Contributors",
+	"misskey.js by syuilo and other contributors",
+	"React by Meta Platforms, Inc. and affiliates",
+	"Fluent Emoji Flat by Microsoft Corporation",
 ];
 ---
 
 <footer>
-    <aside>
-        <div>
-            <div style="margin: 0;">ごれんらく</div>
-            <Contact accounts={accounts} />
-        </div>
-        <div id="credits">
-            <ToggleList
-                client:idle
-                listname="このサイトに使用した著作物"
-                strs={credits}
-            />
-        </div>
-    </aside>
+	<aside>
+		<div>
+			<div style="margin: 0;">ごれんらく</div>
+			<Contact accounts={accounts} />
+		</div>
+		<div id="credits">
+			<ToggleList
+				client:idle
+				listname="このサイトに使用した著作物"
+				strs={credits}
+			/>
+		</div>
+	</aside>
 </footer>
 <style define:vars={{ display }}>
-    footer {
-        display: var(--display);
-        margin: 3ch;
-    }
-    aside {
-        display: contents;
-        font-size: 85%;
-        color: gray;
-    }
-    #credits {
-        margin: 1ch 0;
-    }
+	footer {
+		display: var(--display);
+	}
+	aside {
+		display: contents;
+		font-size: 85%;
+		color: gray;
+	}
+	#credits {
+		margin: 1ch 0;
+	}
 
-    @media (max-width: 600px) {
-        footer {
-            margin: 3ch 1ch;
-        }
-    }
+	@media (max-width: 600px) {
+		footer {
+			margin: 3ch 1ch;
+		}
+	}
 
-    @media (max-width: 450px) {
-        aside h2 {
-            font-size: medium;
-        }
-    }
+	@media (max-width: 450px) {
+		aside h2 {
+			font-size: medium;
+		}
+	}
 </style>

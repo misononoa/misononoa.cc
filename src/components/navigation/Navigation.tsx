@@ -3,10 +3,10 @@ import "./Navigation.css";
 
 export interface Props {
 	current?: string;
-	links: Array<LinkProp>;
+	links: Array<NavLink>;
 }
 
-export type LinkProp = {
+export type NavLink = {
 	href: string;
 	name: string;
 };
