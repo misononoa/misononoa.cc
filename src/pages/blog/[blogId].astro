@@ -1,69 +1,70 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { getBlogDetail, getBlogs } from "../../lib/microcms";
+import Main from "../../components/Main.astro";
+import { getBlogDetail, getBlogs, type Blog } from "../../lib/microcms";
 
 export const prerender = true;
 export async function getStaticPaths() {
-   const response = await getBlogs({ fields: ["id"], limit: 20 });
-   return response.contents.map((content) => ({
-      params: {
-         blogId: content.id,
-      },
-   }));
+	const response = await getBlogs({ fields: ["id"], limit: 20 });
+	return response.contents.map((content) => ({
+		params: {
+			blogId: content.id,
+		},
+	}));
 }
 
 const { blogId } = Astro.params;
-const blog = await getBlogDetail(blogId as string);
+const blog: Blog = await getBlogDetail(blogId as string);
 
 const fields = new Array<{ label: string; value: Date }>();
 Object.entries(blog)
-   .map<[string, Date]>(([k, v]) => [k, new Date(v)])
-   .filter(([k, v]) => k.match(/At$/) && !!v.getDate())
-   .forEach(
-      ([k, v]) =>
-         fields
-            .map((field) => field.value)
-            .every((f) => f.getTime() !== v.getTime()) &&
-         fields.push({ label: k, value: v }),
-   );
+	.map<[string, Date]>(([k, v]) => [k, new Date(v)])
+	.filter(([k, v]) => k.match(/At$/) && !!v.getDate())
+	.forEach(
+		([k, v]) =>
+			fields
+				.map((field) => field.value)
+				.every((f) => f.getTime() !== v.getTime()) &&
+			fields.push({ label: k, value: v }),
+	);
 ---
 
 <BaseLayout title={blog.title}>
-   <main>
-      <div class="article-information">
-         <table>
-            <tbody>
-               {
-                  fields
-                     .sort((a, b) => a.value.getTime() - b.value.getTime())
-                     .map((e) => {
-                        const tr = (
-                           <tr class="field">
-                              <td>{e.label}: </td>
-                              <td>
-                                 {e.value.toLocaleString("ja-JP", {
-                                    timeZone: "Asia/Tokyo",
-                                 })}
-                              </td>
-                           </tr>
-                        );
-                        return tr;
-                     })
-               }
-            </tbody>
-         </table>
-      </div>
-      <div class="article-body" set:html={blog.content} />
-   </main>
+	<Main>
+		<div class="article-information">
+			<table>
+				<tbody>
+					{
+						fields
+							.sort(
+								(a, b) => a.value.getTime() - b.value.getTime(),
+							)
+							.map((e) => (
+								<tr class="field">
+									<td>{e.label}:</td>
+									<td>
+										{e.value.toLocaleString("ja-JP", {
+											timeZone: "Asia/Tokyo",
+										})}
+									</td>
+								</tr>
+							))
+					}
+				</tbody>
+			</table>
+		</div>
+		<div class="article-body" set:html={blog.content} />
+	</Main>
 </BaseLayout>
 
 <style>
-   .article-information {
-      width: 100%;
-      display: flex;
-   }
-   tr.field {
-      color: gray;
-      font-size: smaller;
-   }
+	.article-information {
+		width: 100%;
+		display: flex;
+	}
+
+	tr.field {
+		color: gray;
+		font-size: smaller;
+	}
 </style>
