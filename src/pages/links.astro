@@ -20,6 +20,7 @@ const links: ExtLink[] = [
 	{
 		href: "https://little-girl-float.in/",
 		name: "蝉暮せせせさん",
+		isMutual: true,
 	},
 	{
 		href: "https://ongaku-modkey.hatenablog.com/",
@@ -45,7 +46,7 @@ const links: ExtLink[] = [
 ---
 
 <BaseLayout title="links" iconName="link" displayFooter>
-	<ExternalLinks links={links} />
+	<ExternalLinks links={links} comment_mutual="相互(光栄です)" />
 	<br />
 	<p style="font-size: small; color: gray;">
 		何かございましたら、恐れ入りますが下記アカウントまでご連絡ください。
