@@ -7,7 +7,7 @@ const client = createClient({
 });
 
 export type Blog = MicroCMSListContent & {
-  title: string;
+  title?: string;
   content: string;
 };
 

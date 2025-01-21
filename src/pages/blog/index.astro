@@ -33,7 +33,7 @@ const contents: Array<Blog> = response.contents.sort((a, b) => {
 							<tr>
 								<td>
 									<a href={`/blog/${content.id}`}>
-										{content.title}{" "}
+										{content.title ?? "no_title"}{" "}
 									</a>
 								</td>
 								<td class="date">{date_str}</td>

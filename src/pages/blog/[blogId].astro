@@ -29,7 +29,7 @@ Object.entries(blog)
 	);
 ---
 
-<BaseLayout title={blog.title}>
+<BaseLayout title={blog.title ?? "no_title"}>
 	<Main>
 		<div class="article-information">
 			<table>
