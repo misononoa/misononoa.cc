@@ -21,7 +21,9 @@ export default function Navigation({ current, links }: Props) {
 	})();
 
 	const linkele: Array<JSX.Element> = links
-		.filter((linkprop) => linkprop.name !== current.toLowerCase())
+		.filter((linkprop) => current
+			? linkprop.name !== current.toLowerCase()
+			: true)
 		.map((l) => (
 			<a key={l.href} href={l.href}>
 				{l.href === "/" ? "TOP" : l.name.toUpperCase()}

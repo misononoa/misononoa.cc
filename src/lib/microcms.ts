@@ -1,4 +1,4 @@
-import type { MicroCMSQueries } from "microcms-js-sdk";
+import type { MicroCMSListContent, MicroCMSListResponse, MicroCMSQueries } from "microcms-js-sdk";
 import { createClient } from "microcms-js-sdk";
 
 const client = createClient({
@@ -6,25 +6,15 @@ const client = createClient({
   apiKey: import.meta.env.MICROCMS_API_KEY,
 });
 
-export type Blog = {
-  id: string;
-  createdAt: string;
-  updatedAt: string;
-  publishedAt: string;
-  revisedAt: string;
-  title: string;
+export type Blog = MicroCMSListContent & {
+  title?: string;
   content: string;
 };
 
-export type BlogResponse = {
-  totalcount: number;
-  offset: number;
-  limit: number;
-  contents: Array<Blog>;
-};
+export type BlogResponse = MicroCMSListResponse<Blog>;
 
 export const getBlogs = async (queries: MicroCMSQueries) => {
-  return await client.get({
+  return await client.get<BlogResponse>({
     endpoint: "blogs",
     queries,
   });
