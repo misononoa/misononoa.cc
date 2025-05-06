@@ -1,5 +1,5 @@
 ---
-import { ViewTransitions } from "astro:transitions";
+import { ClientRouter } from "astro:transitions";
 export interface Props {
 	iconName?: string;
 	title: string;
@@ -13,6 +13,6 @@ const { iconName = "man-walking", title } = Astro.props;
 	<meta name="viewport" content="width=device-width" />
 	<meta name="generator" content={Astro.generator} />
 	<title>{title}</title>
-	<ViewTransitions />
+	<ClientRouter />
 </head>
 
