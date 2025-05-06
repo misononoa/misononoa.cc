@@ -30,6 +30,6 @@
   "packageManager": "pnpm@10.10.0",
   "engineStrict": true,
   "engines": {
-    "node": "22.15.0"
+    "node": "22"
   }
 }
