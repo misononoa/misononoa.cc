@@ -1,21 +1,19 @@
-import rss, { type RSSFeedItem } from "@astrojs/rss";
-import { getBlogs, type Blog } from "../../lib/microcms";
+import rss from "@astrojs/rss";
+import { getBlogDetails, type Blog } from "../../lib/microcms";
 
 export const GET = async () => {
-    const items: Array<RSSFeedItem> = (
-        await getBlogs({ fields: ["id", "title", "publishedAt"], limit: 20 })
-    ).contents
-        .map((post: Blog) => ({
-            title: post.title,
-            pubDate: new Date(post.publishedAt ?? ""),
-            link: `/blog/${post.id}`,
-        }));
-
+    const blogDetails: Blog[] = (
+        await getBlogDetails({ limit: 20 })
+    ).contents;
     return rss({
         title: "misononoaのブログ",
         description: "misononoaのブログです。",
         site: "https://misononoa.cc/",
-        items,
+        items: blogDetails.map((post: Blog) => ({
+            title: post.title,
+            pubDate: new Date(post.publishedAt ?? ""),
+            link: `/blog/${post.id}`,
+        })),
         customData: "<language>ja-jp</language>",
     });
 };

@@ -1,0 +1,133 @@
+---
+import type { Page } from "astro";
+import type { BlogInfo } from "lib/microcms";
+import { range } from "lib/util";
+
+export interface Props {
+    pager?: Page<BlogInfo>;
+}
+
+const { pager } = Astro.props;
+const infos = pager?.data ?? [];
+const currentPage: number = pager?.currentPage ?? 1;
+const lastPage: number = pager?.lastPage ?? 1;
+
+const prev = 1 < currentPage ? currentPage - 1 : 1;
+const next = currentPage < lastPage ? currentPage + 1 : lastPage;
+---
+
+<div class="list">
+    <table>
+        <tbody>
+            {
+                infos?.map((content) => {
+                    const publishedAt = content.publishedAt;
+                    const date_str: string = publishedAt
+                        ? new Date(publishedAt).toLocaleString("ja-JP", {
+                              timeZone: "Asia/Tokyo",
+                          })
+                        : "none";
+                    return (
+                        <tr>
+                            <td>
+                                <a href={`/blog/${content.id}`}>
+                                    {content.title ?? "no_title"}{" "}
+                                </a>
+                            </td>
+                            <td class="date">{date_str}</td>
+                        </tr>
+                    );
+                })
+            }
+        </tbody>
+    </table>
+</div>
+<div class="pager">
+    <span class="next-prev">
+        <a href={`/blogs/${prev}`}>○</a>
+    </span>
+    <span class="page-numbers">
+        {
+            range(1, lastPage + 1).map((i) => {
+                const className = i === currentPage ? "current" : "";
+                return (
+                    <a href={`/blogs/${i}`} class={className}>
+                        {i}
+                    </a>
+                );
+            })
+        }
+    </span>
+    <span class="next-prev">
+        <a href={`/blogs/${next}`}>●</a>
+    </span>
+</div>
+
+<style>
+    .list {
+        display: flex;
+        justify-content: center;
+    }
+
+    .list > table {
+        width: 100%;
+    }
+
+    .list td {
+        border-bottom: dotted 3px lightgrey;
+    }
+
+    .list td > * {
+        line-height: 30px;
+    }
+
+    .list td.date {
+        text-align: end;
+    }
+
+    .date {
+        padding: 5px 5px 5px 0;
+        color: gray;
+        font-size: 70%;
+    }
+
+    .pager {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        margin: 20px 0 0 0;
+        font-size: large;
+        color: var(--linkcolor);
+    }
+
+    .next-prev {
+        margin: 0 10px;
+    }
+
+    .next-prev > a {
+        font-weight: bolder;
+        color: black;
+    }
+
+    .page-numbers {
+        display: inline-flex;
+        vertical-align: middle;
+        max-width: 40%;
+        overflow-x: scroll;
+        scrollbar-width: none;
+    }
+
+    .page-numbers::-webkit-scrollbar {
+        display: none;
+    }
+
+    .page-numbers > * {
+        height: 40px;
+        margin: 0 5px;
+    }
+
+    .current {
+        font-weight: bolder;
+        color: black;
+    }
+</style>

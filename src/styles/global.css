@@ -1,5 +1,10 @@
+:root {
+    --bgcolor: #f1f5f9;
+    --linkcolor: darkblue;
+}
+
 html {
-    background-color: #f1f5f9;
+    background-color: var(--bgcolor);
     font-family: "dotgothic16";
 }
 
@@ -22,6 +27,6 @@ hr {
 }
 
 a {
-    color: darkblue;
+    color: var(--linkcolor);
     text-decoration: none;
 }

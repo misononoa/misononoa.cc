@@ -1,0 +1,23 @@
+---
+import type { GetStaticPaths, GetStaticPathsOptions } from "astro";
+import { getAllBlogInfos, type BlogInfo } from "lib/microcms";
+import { LIST_PER_PAGE } from "lib/constants";
+
+import BaseLayout from "layouts/BaseLayout.astro";
+import Main from "components/Main.astro";
+import BlogInfoList from "components/BlogInfoList.astro";
+
+export const prerender = true;
+export const getStaticPaths = (async ({ paginate }: GetStaticPathsOptions) => {
+	const blogs: BlogInfo[] = await getAllBlogInfos();
+	return paginate(blogs, { pageSize: LIST_PER_PAGE });
+}) satisfies GetStaticPaths;
+
+const { page } = Astro.props;
+---
+
+<BaseLayout title="blogs" iconName="ledger">
+	<Main>
+		<BlogInfoList pager={page} />
+	</Main>
+</BaseLayout>

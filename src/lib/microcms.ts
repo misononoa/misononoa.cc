@@ -6,27 +6,40 @@ const client = createClient({
   apiKey: import.meta.env.MICROCMS_API_KEY,
 });
 
-export type Blog = MicroCMSListContent & {
-  title?: string;
+
+export type BlogInfo = MicroCMSListContent & { title: string };
+const blogInfoFieldNames = ["id", "title", "createdAt", "updatedAt", "publishedAt", "revisedAt"];
+
+export type Blog = BlogInfo & {
   content: string;
 };
 
-export type BlogResponse = MicroCMSListResponse<Blog>;
-
-export const getBlogs = async (queries: MicroCMSQueries) => {
-  return await client.get<BlogResponse>({
+export const getBlogInfos = ({ limit, offset }: { limit?: number, offset?: number }) =>
+  client.get<MicroCMSListResponse<BlogInfo>>({
     endpoint: "blogs",
-    queries,
+    queries: { limit, offset, fields: blogInfoFieldNames }
   });
-};
 
-export const getBlogDetail = async (
-  contentId: string,
-  queries?: MicroCMSQueries
-) => {
-  return await client.getListDetail<Blog>({
+export const getAllBlogInfos = async () =>
+  await client.getAllContents<BlogInfo>({
     endpoint: "blogs",
-    contentId,
-    queries,
+    queries: { fields: blogInfoFieldNames }
   });
-};
+
+export const getAllBlogIds = async () =>
+  await client.getAllContentIds({ endpoint: "blogs" });
+
+export const getBlogDetail = async (contentId: string) =>
+  await client.getListDetail<Blog>({
+    endpoint: "blogs",
+    contentId
+  });
+
+export const getBlogDetails = async ({ limit, offset }: { limit?: number, offset?: number }) =>
+  client.get<MicroCMSListResponse<Blog>>({
+    endpoint: "blogs",
+    queries: {
+      limit, offset,
+      fields: blogInfoFieldNames.concat(["content"])
+    }
+  });

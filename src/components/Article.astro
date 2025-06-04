@@ -1,0 +1,100 @@
+---
+import type { Blog } from "lib/microcms";
+
+export interface Props {
+    blog: Blog;
+    showTitle?: boolean;
+    limitHeight?: boolean;
+}
+
+const { blog, showTitle, limitHeight } = Astro.props;
+const fields = new Array<{ label: string; value: Date }>();
+Object.entries(blog)
+    .map<[string, Date]>(([k, v]) => [k, new Date(v)])
+    .filter(([k, v]) => k.match(/At$/) && !!v.getDate())
+    .forEach(
+        ([k, v]) =>
+            fields
+                .map((field) => field.value)
+                .every((f) => f.getTime() !== v.getTime()) &&
+            fields.push({ label: k, value: v }),
+    );
+---
+
+<article>
+    <div class={limitHeight ? "limit-height": ""}>
+        {
+            showTitle ? (
+                <div class="article-title">
+                    <h3>{blog.title}</h3>
+                </div>
+            ) : (
+                ""
+            )
+        }
+        <div class="article-info">
+            <table>
+                <tbody>
+                    {
+                        fields
+                            .sort((a, b) => a.value.getTime() - b.value.getTime())
+                            .map((e) => (
+                                <tr class="field">
+                                    <td>{e.label}:</td>
+                                    <td>
+                                        {e.value.toLocaleString("ja-JP", {
+                                            timeZone: "Asia/Tokyo",
+                                        })}
+                                    </td>
+                                </tr>
+                            ))
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div set:html={blog.content} />
+    </div>
+    <slot />
+</article>
+
+<style>
+    article {
+        margin-bottom: 25px;
+        padding: 5px;
+    }
+
+    article > div > h3 {
+        margin-bottom: 0;
+    }
+
+    .article-info {
+        width: 100%;
+        display: flex;
+    }
+
+    tr.field {
+        color: gray;
+        font-size: smaller;
+    }
+
+    .limit-height {
+        overflow: hidden;
+        max-height: 500px;
+        position: relative;
+    }
+
+    .limit-height:before {
+        content: "";
+        position: absolute;
+        border-style: none;
+        left: 0;
+        bottom: 0;
+        z-index: 2;
+        width: 100%;
+        height: 120px;
+        background: linear-gradient(
+            rgba(255, 255, 255, 0) 0,
+            var(--bgcolor) 100px
+        );
+    }
+</style>

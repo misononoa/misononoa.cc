@@ -1,58 +1,31 @@
 ---
-import "../../styles/global.css";
+import "styles/global.css";
 
 import Main from "../../components/Main.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { type Blog, getBlogs } from "../../lib/microcms";
+import Article from "components/Article.astro";
+import { getBlogDetails } from "../../lib/microcms";
 
-const response = await getBlogs({
-	fields: ["id", "title", "publishedAt"],
-	limit: 20,
-});
-const contents: Array<Blog> = response.contents.sort((a, b) => {
-	return (
-		new Date(b.publishedAt ?? 0).getTime() -
-		new Date(a.publishedAt ?? 0).getTime()
-	);
-});
+const response = await getBlogDetails({ limit: 3 });
 ---
 
 <BaseLayout title="blog" iconName="newspaper">
 	<Main>
-		<table>
-			<tbody>
-				{
-					contents.map((content) => {
-						const publishedAt = content.publishedAt;
-						const date_str: string = publishedAt
-							? new Date(publishedAt).toLocaleString("ja-JP", {
-									timeZone: "Asia/Tokyo",
-								})
-							: "none";
-						return (
-							<tr>
-								<td>
-									<a href={`/blog/${content.id}`}>
-										{content.title ?? "no_title"}{" "}
-									</a>
-								</td>
-								<td class="date">{date_str}</td>
-							</tr>
-						);
-					})
-				}
-			</tbody>
-		</table>
+		{
+			response.contents.map((c) => (
+				<Article blog={c} showTitle limitHeight>
+					<div style="font-weight: bold;">
+						<a href={`/blog/${c.id}`}>つづきをよむ</a>
+					</div>
+				</Article>
+			))
+		}
+		<div class="goto-bloglist"><a href="/blogs/1">ブログ一覧へ</a></div>
 	</Main>
 </BaseLayout>
 
 <style>
-	.date {
-		padding: 5px 5px 5px 0;
-		color: gray;
-		font-size: 70%;
-	}
-	tr * {
-		text-wrap: nowrap;
+	.goto-bloglist {
+		text-align: center;
 	}
 </style>
