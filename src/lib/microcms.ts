@@ -1,4 +1,4 @@
-import type { MicroCMSListContent, MicroCMSListResponse, MicroCMSQueries } from "microcms-js-sdk";
+import type { MicroCMSListContent, MicroCMSListResponse } from "microcms-js-sdk";
 import { createClient } from "microcms-js-sdk";
 
 const client = createClient({
