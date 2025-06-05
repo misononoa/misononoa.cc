@@ -1,5 +1,6 @@
 ---
 import type { Blog } from "lib/microcms";
+import { dateToString, compareDate } from "lib/util";
 
 export interface Props {
     blog: Blog;
@@ -22,7 +23,7 @@ Object.entries(blog)
 ---
 
 <article>
-    <div class={limitHeight ? "limit-height": ""}>
+    <div class={limitHeight ? "limit-height" : ""}>
         {
             showTitle ? (
                 <div class="article-title">
@@ -37,15 +38,11 @@ Object.entries(blog)
                 <tbody>
                     {
                         fields
-                            .sort((a, b) => a.value.getTime() - b.value.getTime())
+                            .sort((a, b) => compareDate(a.value, b.value))
                             .map((e) => (
                                 <tr class="field">
                                     <td>{e.label}:</td>
-                                    <td>
-                                        {e.value.toLocaleString("ja-JP", {
-                                            timeZone: "Asia/Tokyo",
-                                        })}
-                                    </td>
+                                    <td>{dateToString(e.value)}</td>
                                 </tr>
                             ))
                     }
@@ -63,7 +60,7 @@ Object.entries(blog)
         padding: 5px;
     }
 
-    article > div > h3 {
+    div.article-title > h3 {
         margin-bottom: 0;
     }
 
