@@ -30,11 +30,7 @@
   "packageManager": "pnpm@10.11.1",
   "engineStrict": true,
   "engines": {
-    "node": "22"
-  },
-  "pnpm": {
-    "executionEnv": {
-      "nodeVersion": "22.16.0"
-    }
+    "node": "22",
+    "pnpm": "10"
   }
 }
