@@ -32,5 +32,15 @@
   "engines": {
     "node": "22",
     "pnpm": "10"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "astro",
+      "vite"
+    ],
+    "ignoredBuiltDependencies": [
+      "esbuild",
+      "sharp"
+    ]
   }
 }
