@@ -1,7 +1,13 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import ExternalLinks from "../components/ExternalLinks.astro";
-import { type ExtLink } from "../components/ExternalLinks.astro";
+
+type ExtLink = {
+	href: string;
+	img?: string;
+	img_alt?: string;
+	name: string;
+	isMutual?: boolean;
+};
 
 const links: ExtLink[] = [
 	{
@@ -43,12 +49,70 @@ const links: ExtLink[] = [
 		name: "蓬屋ふらんさん",
 	},
 ];
+
+const comment_mutual = "相互(ありがとうございます)";
+const comment_fav = "お気に入り";
+
+const formed_links: (string | ExtLink)[] = ((links) => {
+	const result: (string | ExtLink)[] = new Array();
+	const mutuals = links.filter((link) => link.isMutual);
+	const favorites = links.filter((link) => !link.isMutual);
+	mutuals.length > 0 && result.push(comment_mutual);
+	mutuals.forEach((link) => result.push(link));
+	favorites.length > 0 && result.push(comment_fav);
+	favorites.forEach((link) => result.push(link));
+	return result;
+})(links);
 ---
 
 <BaseLayout title="links" iconName="link" displayFooter>
-	<ExternalLinks links={links} comment_mutual="相互(光栄です)" />
+	<div class="external-links">
+		{
+			formed_links.map((e) => {
+				if (typeof e === "string") {
+					return <div style="margin: 10px 0 0 0; ">{e}</div>;
+				} else if (e.img) {
+					return (
+						<li>
+							<a href={e.href} style="font-size: small;">
+								{e.name} <br />
+								<img src={e.img} alt={e.img_alt || e.name} />
+							</a>
+						</li>
+					);
+				} else {
+					return (
+						<li style="padding: 15px 0;">
+							<a
+								style="font-size: 95%; padding: 2px; border-bottom: dotted 4px darkgray;"
+								href={e.href}
+							>
+								{e.name}
+							</a>
+						</li>
+					);
+				}
+			})
+		}
+	</div>
 	<br />
 	<p style="font-size: small; color: gray;">
 		何かございましたら、恐れ入りますが下記アカウントまでご連絡ください。
 	</p>
 </BaseLayout>
+
+<style>
+	.external-links {
+		margin: 20px 0;
+	}
+	.external-links ul {
+		margin: 0;
+		padding: 0;
+	}
+	.external-links li {
+		list-style-type: none;
+	}
+	.external-links img {
+		margin: 0;
+	}
+</style>
