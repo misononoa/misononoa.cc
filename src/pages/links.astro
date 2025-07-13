@@ -7,51 +7,70 @@ type ExtLink = {
 	img_alt?: string;
 	name: string;
 	isMutual?: boolean;
+	comment?: string;
 };
 
 const links: ExtLink[] = [
 	{
 		href: "https://yuinoid.neocities.org/",
-		img: "https://yuinoid.neocities.org/img/banner.gif",
-		img_alt: "100%health",
-		name: "いど子さん",
+		img: "/ext/yuinoid-neocities-org-banner.gif",
+		name: "100%health",
 		isMutual: true,
+		comment: `主にFediverse上で活動されているいど子さん
+		のサイトです。このサイトでは分散SNS関連年表(とても有益)や
+		素敵なイラストなどを見ることができます。`
 	},
 	{
 		href: "https://t3tekuno.neocities.org",
-		img: "https://t3tekuno.neocities.org/images/banner.png",
-		img_alt: "てく野のサイト",
-		name: "てく野さん",
+		img: "/ext/t3tekuno-neocities-org-banner.png",
+		name: "てく野のサイト",
+		comment: `主にFediverse上で活動されているてく野さんのサイトです。
+		このサイトでは素敵なイラストなどを見ることができます。
+		私は鉄野みすずさんが好きです。`
 	},
 	{
 		href: "https://little-girl-float.in/",
-		name: "蝉暮せせせさん",
+		name: "little-girl-float.in",
 		isMutual: true,
+		comment: `Fediverseなどで活動されている蝉暮せせせさんのサイトです。
+		このサイトでは主宰されている音楽サークルex. happyender girlの情報や
+		ブログなどを見ることができます。私はファストダンスはもう踊れないが
+		お気に入りです。`
 	},
 	{
 		href: "https://ongaku-modkey.hatenablog.com/",
 		name: "才ンガク毛ドキさん(エッコ チェンバー 地下)",
+		comment: `Xなどで活動されている才ンガク毛ドキさんのサイトです。
+		主にVaporwave関連情報について日本語圏で最も詳しい(多分)記事を読むことができます。`
 	},
 	{
 		href: "https://1041uuu.jp/",
-		name: "豊井さん",
+		name: "1041uuu展示室",
+		comment: `豊井さんのサイトです。このサイトでは豊井さんのイラストを見る
+		ことができます。Webページのデザイン面でもとても惹きつけられます。
+		私が撮影する写真は豊井さんのイラストにかなり影響を受けていると勝手ながら
+		思っています。`
 	},
 	{
 		href: "https://yamaiga.com",
-		img: "https://yamaiga.com/banner2.gif",
-		img_alt: "山さ行かねが",
-		name: "ヨッキれんさん(山行が)",
+		img: "/ext/yamaiga-com-banner2.gif",
+		name: "山さ行かねが",
+		comment: `日本の廃道未成道レポートで最も有名なのではないかと思います。
+		過酷な条件でも踏破する果敢さも魅力的ですが、起伏があって
+		飽きさせない文章やページ構成も読みやすく良いです。読みましょう。`
 	},
 	{
 		href: "https://hccweb6.bai.ne.jp/yomogi-farm/",
-		img: "http://hccweb6.bai.ne.jp/yomogi-farm/img/banner/banner.jpg",
-		img_alt: "フランソワさんのよもぎ畑",
-		name: "蓬屋ふらんさん",
+		img: "/ext/bai-ne-jp-yomogi-farm-banner.jpg",
+		name: "フランソワさんのよもぎ畑",
+		comment: `主に東方Projectのアレンジ楽曲を制作されている蓬屋ふらんさんの
+		サイトです。ここのサイトでは過去のアレンジ楽曲やイラストを見ることができます。
+		私はエクステンドアッシュ ～蓬莱人のアレンジが特に好きです。`
 	},
 ];
 
-const comment_mutual = "相互(ありがとうございます)";
-const comment_fav = "お気に入り";
+const comment_mutual = "sougo";
+const comment_fav = "okini";
 
 const formed_links: (string | ExtLink)[] = ((links) => {
 	const result: (string | ExtLink)[] = new Array();
@@ -66,53 +85,70 @@ const formed_links: (string | ExtLink)[] = ((links) => {
 ---
 
 <BaseLayout title="links" iconName="link" displayFooter>
-	<div class="external-links">
+	<div id="links-container">
 		{
 			formed_links.map((e) => {
-				if (typeof e === "string") {
-					return <div style="margin: 10px 0 0 0; ">{e}</div>;
-				} else if (e.img) {
-					return (
-						<li>
-							<a href={e.href} style="font-size: small;">
-								{e.name} <br />
-								<img src={e.img} alt={e.img_alt || e.name} />
+				return typeof e === "string" ? (
+					<h3>{e}</h3>
+				) : (
+					<section>
+						<div class="link">
+							<a href={e.href} class={!e.img ? "nameonly" : ""}>
+								{!!e.img ? (
+									<>
+										{e.name}
+										<br />
+										<img src={e.img} alt={e.img_alt ?? e.name} />
+									</>
+								) : (
+									e.name
+								)}
 							</a>
-						</li>
-					);
-				} else {
-					return (
-						<li style="padding: 15px 0;">
-							<a
-								style="font-size: 95%; padding: 2px; border-bottom: dotted 4px darkgray;"
-								href={e.href}
-							>
-								{e.name}
-							</a>
-						</li>
-					);
-				}
+						</div>
+						<div class="comment">{e.comment ?? ""}</div>
+					</section>
+				);
 			})
 		}
 	</div>
 	<br />
+	<p>
+		当サイトへのリンクはご自由に。ぜひ。<br />
+		バナーだよ:
+		<div>
+			<img src="/misononoa-cc-banner1.webp" height="40px" alt="banner1"/>
+			<img src="/misononoa-cc-banner2.webp" height="40px" alt="banner2"/>
+		</div>
+	</p>
 	<p style="font-size: small; color: gray;">
-		何かございましたら、恐れ入りますが下記アカウントまでご連絡ください。
+		お気づきの点などございましたら、恐れ入りますが下記アカウントまでご連絡ください。
 	</p>
 </BaseLayout>
 
 <style>
-	.external-links {
-		margin: 20px 0;
+	#links-container {
+		display: grid;
+		grid-template-columns: max-content subgrid;
 	}
-	.external-links ul {
-		margin: 0;
-		padding: 0;
+
+	#links-container > section {
+		margin-bottom: 16px;
+		div.link > a {
+			vertical-align: middle;
+			font-size: small;
+		}
+		div.link > a.nameonly {
+			font-size: medium;
+		}
+		div.comment {
+			font-size: 95%;
+		}
 	}
-	.external-links li {
-		list-style-type: none;
-	}
-	.external-links img {
-		margin: 0;
+
+	#links-container > h3 {
+		margin-bottom: 0;
+		border-bottom-style: dotted;
+		border-bottom-width: 3px;
+		border-bottom-color: var(--bordercolor);
 	}
 </style>

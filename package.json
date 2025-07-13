@@ -35,6 +35,12 @@
   "pnpm": {
     "executionEnv": {
       "nodeVersion": "22.16.0"
-    }
+    },
+    "ignoredBuiltDependencies": [
+      "sharp"
+    ],
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
   }
 }
