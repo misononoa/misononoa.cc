@@ -1,10 +1,10 @@
 ---
 import "styles/global.css";
 
-import Main from "../../components/Main.astro";
-import BaseLayout from "../../layouts/BaseLayout.astro";
+import Main from "components/Main.astro";
+import BaseLayout from "layouts/BaseLayout.astro";
 import Article from "components/Article.astro";
-import { getBlogDetails } from "../../lib/microcms";
+import { getBlogDetails } from "lib/microcms";
 
 const response = await getBlogDetails({ limit: 3 });
 ---

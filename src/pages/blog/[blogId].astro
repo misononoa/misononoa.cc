@@ -1,9 +1,9 @@
 ---
 import type { GetStaticPaths } from "astro";
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import Main from "../../components/Main.astro";
+import BaseLayout from "layouts/BaseLayout.astro";
+import Main from "components/Main.astro";
 import Article from "components/Article.astro";
-import { getAllBlogIds, getBlogDetail, type Blog } from "../../lib/microcms";
+import { getAllBlogIds, getBlogDetail, type Blog } from "lib/microcms";
 
 export const prerender = true;
 export const getStaticPaths = (async () => {
@@ -19,6 +19,6 @@ const blog: Blog = await getBlogDetail(blogId);
 
 <BaseLayout title={blog.title ?? "no_title"}>
 	<Main>
-		<Article blog={blog}/>
+		<Article blog={blog} />
 	</Main>
 </BaseLayout>

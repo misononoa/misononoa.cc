@@ -1,5 +1,5 @@
 import rss from "@astrojs/rss";
-import { getBlogDetails, type Blog } from "../../lib/microcms";
+import { getBlogDetails, type Blog } from "lib/microcms";
 
 export const GET = async () => {
     const blogDetails: Blog[] = (

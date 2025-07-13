@@ -1,10 +1,9 @@
-export const chunk = <T>(array: T[], size: number): T[][] => (
-    Array.from(
-        { length: Math.ceil(array.length / size) },
-        (_, i) => array.slice(i * size, (i + 1) * size)
-    )
-);
+import { TIMEZONE } from "./constants";
 
-export const range = (begin: number, end: number) => (
-    [...Array(end - begin)].map((_, i) => (begin + i))
-);
+export const dateToString = (date: Date, timeZone: string = TIMEZONE) => date.toLocaleString("ja-JP", {
+    timeZone
+});
+
+export const formatDate = (utime: number | string | Date) => dateToString(new Date(utime));
+
+export const compareDate = (date1: Date, date2: Date) => date1.getTime() - date2.getTime();

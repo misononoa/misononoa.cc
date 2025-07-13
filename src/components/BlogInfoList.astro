@@ -1,32 +1,22 @@
 ---
 import type { Page } from "astro";
 import type { BlogInfo } from "lib/microcms";
-import { range } from "lib/util";
+import { formatDate } from "lib/util";
 
 export interface Props {
-    pager?: Page<BlogInfo>;
+    pager: Page<BlogInfo>;
 }
 
 const { pager } = Astro.props;
-const infos = pager?.data ?? [];
-const currentPage: number = pager?.currentPage ?? 1;
-const lastPage: number = pager?.lastPage ?? 1;
-
-const prev = 1 < currentPage ? currentPage - 1 : 1;
-const next = currentPage < lastPage ? currentPage + 1 : lastPage;
+const { current, next, prev } = pager.url;
 ---
 
 <div class="list">
     <table>
         <tbody>
             {
-                infos?.map((content) => {
-                    const publishedAt = content.publishedAt;
-                    const date_str: string = publishedAt
-                        ? new Date(publishedAt).toLocaleString("ja-JP", {
-                              timeZone: "Asia/Tokyo",
-                          })
-                        : "none";
+                pager.data.map((content) => {
+                    const date = content.publishedAt;
                     return (
                         <tr>
                             <td>
@@ -34,7 +24,9 @@ const next = currentPage < lastPage ? currentPage + 1 : lastPage;
                                     {content.title ?? "no_title"}{" "}
                                 </a>
                             </td>
-                            <td class="date">{date_str}</td>
+                            <td class="date">
+                                {date ? formatDate(date) : "none"}
+                            </td>
                         </tr>
                     );
                 })
@@ -44,22 +36,30 @@ const next = currentPage < lastPage ? currentPage + 1 : lastPage;
 </div>
 <div class="pager">
     <span class="next-prev">
-        <a href={`/blogs/${prev}`}>○</a>
+        <a href={prev ?? current}>○</a>
     </span>
     <span class="page-numbers">
         {
-            range(1, lastPage + 1).map((i) => {
-                const className = i === currentPage ? "current" : "";
-                return (
-                    <a href={`/blogs/${i}`} class={className}>
+            new Array(pager.lastPage)
+                .fill(0)
+                .map((_, i) => i + 1)
+                .map(
+                    (i) =>
+                        [
+                            `/blogs/${i}`,
+                            i === pager.currentPage ? "current" : "",
+                            i,
+                        ] satisfies [string, string, number],
+                )
+                .map(([path, className, i]) => (
+                    <a href={path} class={className}>
                         {i}
                     </a>
-                );
-            })
+                ))
         }
     </span>
     <span class="next-prev">
-        <a href={`/blogs/${next}`}>●</a>
+        <a href={next ?? current}>●</a>
     </span>
 </div>
 
