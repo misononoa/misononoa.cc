@@ -18,7 +18,7 @@ const links: ExtLink[] = [
 		isMutual: true,
 		comment: `主にFediverse上で活動されているいど子さん
 		のサイトです。このサイトでは分散SNS関連年表(とても有益)や
-		素敵なイラストなどを見ることができます。`
+		素敵なイラストなどを見ることができます。`,
 	},
 	{
 		href: "https://t3tekuno.neocities.org",
@@ -26,7 +26,7 @@ const links: ExtLink[] = [
 		name: "てく野のサイト",
 		comment: `主にFediverse上で活動されているてく野さんのサイトです。
 		このサイトでは素敵なイラストなどを見ることができます。
-		私は鉄野みすずさんが好きです。`
+		私は鉄野みすずさんが好きです。`,
 	},
 	{
 		href: "https://little-girl-float.in/",
@@ -35,29 +35,37 @@ const links: ExtLink[] = [
 		comment: `Fediverseなどで活動されている蝉暮せせせさんのサイトです。
 		このサイトでは主宰されている音楽サークルex. happyender girlの情報や
 		ブログなどを見ることができます。私はファストダンスはもう踊れないが
-		お気に入りです。`
+		お気に入りです。`,
+	},
+	{
+		href: "https://towasys.com/",
+		name: "t_wの輪郭",
+		comment: `Fedivierseなどで活動されている渡辺時羽さんのサイトです。
+		このサイトでは主に渡辺さんの日記や生活に関する情報を知ることができます。
+		特にソフトウェア技術と料理の情報が大変興味深いです。`
 	},
 	{
 		href: "https://ongaku-modkey.hatenablog.com/",
-		name: "才ンガク毛ドキさん(エッコ チェンバー 地下)",
+		name: "エッコ　チェンバー　地下",
 		comment: `Xなどで活動されている才ンガク毛ドキさんのサイトです。
-		主にVaporwave関連情報について日本語圏で最も詳しい(多分)記事を読むことができます。`
+		主にVaporwave関連情報等について日本語圏で最も詳しい(私調べ)記事を
+		読むことができます。`,
 	},
 	{
 		href: "https://1041uuu.jp/",
 		name: "1041uuu展示室",
 		comment: `豊井さんのサイトです。このサイトでは豊井さんのイラストを見る
-		ことができます。Webページのデザイン面でもとても惹きつけられます。
-		私が撮影する写真は豊井さんのイラストにかなり影響を受けていると勝手ながら
-		思っています。`
+		ことができます。Webページのデザイン面でもとても惹きつけられます。私が
+		撮影する写真は豊井さんのイラストにかなり影響を受けていると勝手ながら
+		思っています。`,
 	},
 	{
 		href: "https://yamaiga.com",
 		img: "/ext/yamaiga-com-banner2.gif",
 		name: "山さ行かねが",
-		comment: `日本の廃道未成道レポートで最も有名なのではないかと思います。
-		過酷な条件でも踏破する果敢さも魅力的ですが、起伏があって
-		飽きさせない文章やページ構成も読みやすく良いです。読みましょう。`
+		comment: `日本の廃道未成道レポートで最も有名な方なのではないかと思います。
+		過酷な条件でも踏破する果敢さや机上調査の詳しさも魅力的ですが、文章や
+		ページ構成も飽きさせない起伏があって読みやすく良いです。なんだ偉そうに。`,
 	},
 	{
 		href: "https://hccweb6.bai.ne.jp/yomogi-farm/",
@@ -65,9 +73,12 @@ const links: ExtLink[] = [
 		name: "フランソワさんのよもぎ畑",
 		comment: `主に東方Projectのアレンジ楽曲を制作されている蓬屋ふらんさんの
 		サイトです。ここのサイトでは過去のアレンジ楽曲やイラストを見ることができます。
-		私はエクステンドアッシュ ～蓬莱人のアレンジが特に好きです。`
+		私はエクステンドアッシュ&nbsp;～蓬莱人のアレンジが特に好きです。`,
 	},
 ];
+links.forEach((e) => {
+	e.comment = e.comment?.replaceAll(/\s+/g, "");
+});
 
 const comment_mutual = "sougo";
 const comment_fav = "okini";
@@ -98,47 +109,62 @@ const formed_links: (string | ExtLink)[] = ((links) => {
 									<>
 										{e.name}
 										<br />
-										<img src={e.img} alt={e.img_alt ?? e.name} />
+										<img
+											src={e.img}
+											alt={e.img_alt ?? e.name}
+										/>
 									</>
 								) : (
 									e.name
 								)}
 							</a>
 						</div>
-						<div class="comment">{e.comment ?? ""}</div>
+						<div class="comment" set:html={e.comment ?? ""} />
 					</section>
 				);
 			})
 		}
 	</div>
-	<br />
+	<hr />
 	<p>
 		当サイトへのリンクはご自由に。ぜひ。<br />
-		バナーだよ:
-		<div>
-			<img src="/misononoa-cc-banner1.webp" height="40px" alt="banner1"/>
-			<img src="/misononoa-cc-banner2.webp" height="40px" alt="banner2"/>
-		</div>
+		バナーだよ:<br />
+		<img
+			src="/misononoa-cc-banner1.webp"
+			height="40px"
+			alt="banner1"
+			style="image-rendering: pixelated;"
+		/>
+		<img
+			src="/misononoa-cc-banner2.webp"
+			height="40px"
+			alt="banner2"
+			style="image-rendering: pixelated;"
+		/>
+		<br />
+		`image-rendering: pixelated;`をつけるとよいかもしれない。
 	</p>
-	<p style="font-size: small; color: gray;">
+	<br />
+	<p slot="footer" style="font-size: small; color: gray;">
 		お気づきの点などございましたら、恐れ入りますが下記アカウントまでご連絡ください。
 	</p>
 </BaseLayout>
 
 <style>
-	#links-container {
-		display: grid;
-		grid-template-columns: max-content subgrid;
-	}
-
 	#links-container > section {
-		margin-bottom: 16px;
+		margin-bottom: 18px;
+		border-left-style: dotted;
+		border-left-width: 3px;
+		border-left-color: lightpink;
+		padding-left: 5px;
+
 		div.link > a {
 			vertical-align: middle;
 			font-size: small;
 		}
 		div.link > a.nameonly {
 			font-size: medium;
+			font-weight: bold;
 		}
 		div.comment {
 			font-size: 95%;
@@ -146,9 +172,6 @@ const formed_links: (string | ExtLink)[] = ((links) => {
 	}
 
 	#links-container > h3 {
-		margin-bottom: 0;
-		border-bottom-style: dotted;
-		border-bottom-width: 3px;
-		border-bottom-color: var(--bordercolor);
+		margin-bottom: 3px;
 	}
 </style>

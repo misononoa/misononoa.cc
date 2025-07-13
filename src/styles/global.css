@@ -17,6 +17,7 @@ body {
 }
 
 hr {
+    color: var(--bordercolor);
     margin-top: 25px;
     margin-bottom: 25px;
 }
