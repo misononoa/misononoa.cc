@@ -23,6 +23,8 @@ const {
 	<body>
 		<Header title={title} iconName={iconName} />
 		<slot />
-		<Footer display={displayFooter} />
+		<Footer display={displayFooter}>
+			<slot name="footer" />
+		</Footer>
 	</body>
 </html>

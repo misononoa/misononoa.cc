@@ -1,54 +1,177 @@
 ---
-import BaseLayout from "layouts/BaseLayout.astro";
-import ExternalLinks from "components/ExternalLinks.astro";
-import { type ExtLink } from "components/ExternalLinks.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+type ExtLink = {
+	href: string;
+	img?: string;
+	img_alt?: string;
+	name: string;
+	isMutual?: boolean;
+	comment?: string;
+};
 
 const links: ExtLink[] = [
 	{
 		href: "https://yuinoid.neocities.org/",
-		img: "https://yuinoid.neocities.org/img/banner.gif",
-		img_alt: "100%health",
-		name: "いど子さん",
+		img: "/ext/yuinoid-neocities-org-banner.gif",
+		name: "100%health",
 		isMutual: true,
+		comment: `主にFediverse上で活動されているいど子さん
+		のサイトです。このサイトでは分散SNS関連年表(とても有益)や
+		素敵なイラストなどを見ることができます。`,
 	},
 	{
 		href: "https://t3tekuno.neocities.org",
-		img: "https://t3tekuno.neocities.org/images/banner.png",
-		img_alt: "てく野のサイト",
-		name: "てく野さん",
+		img: "/ext/t3tekuno-neocities-org-banner.png",
+		name: "てく野のサイト",
+		comment: `主にFediverse上で活動されているてく野さんのサイトです。
+		このサイトでは素敵なイラストなどを見ることができます。
+		私は鉄野みすずさんが好きです。`,
 	},
 	{
 		href: "https://little-girl-float.in/",
-		name: "蝉暮せせせさん",
+		name: "little-girl-float.in",
 		isMutual: true,
+		comment: `Fediverseなどで活動されている蝉暮せせせさんのサイトです。
+		このサイトでは主宰されている音楽サークルex. happyender girlの情報や
+		ブログなどを見ることができます。私はファストダンスはもう踊れないが
+		お気に入りです。`,
+	},
+	{
+		href: "https://towasys.com/",
+		name: "t_wの輪郭",
+		comment: `Fedivierseなどで活動されている渡辺時羽さんのサイトです。
+		このサイトでは主に渡辺さんの日記や生活に関する情報を知ることができます。
+		特にソフトウェア技術と料理の情報が大変興味深いです。`
 	},
 	{
 		href: "https://ongaku-modkey.hatenablog.com/",
-		name: "才ンガク毛ドキさん(エッコ チェンバー 地下)",
+		name: "エッコ　チェンバー　地下",
+		comment: `Xなどで活動されている才ンガク毛ドキさんのサイトです。
+		主にVaporwave関連情報等について日本語圏で最も詳しい(私調べ)記事を
+		読むことができます。`,
 	},
 	{
 		href: "https://1041uuu.jp/",
-		name: "豊井さん",
+		name: "1041uuu展示室",
+		comment: `豊井さんのサイトです。このサイトでは豊井さんの素敵なイラストを
+		見ることができます。Webページのデザイン面でもとても惹きつけられます。私が
+		撮影する写真は豊井さんのイラストにかなり影響を受けていると勝手ながら
+		思っています。`,
 	},
 	{
 		href: "https://yamaiga.com",
-		img: "https://yamaiga.com/banner2.gif",
-		img_alt: "山さ行かねが",
-		name: "ヨッキれんさん(山行が)",
+		img: "/ext/yamaiga-com-banner2.gif",
+		name: "山さ行かねが",
+		comment: `日本の廃道未成道レポートで最も有名な方なのではないかと思います。
+		過酷な条件でも踏破する果敢さや机上調査の詳しさも魅力的ですが、文章や
+		ページ構成も飽きさせない起伏があって読みやすく良いです。なんだ偉そうに。`,
 	},
 	{
 		href: "https://hccweb6.bai.ne.jp/yomogi-farm/",
-		img: "http://hccweb6.bai.ne.jp/yomogi-farm/img/banner/banner.jpg",
-		img_alt: "フランソワさんのよもぎ畑",
-		name: "蓬屋ふらんさん",
+		img: "/ext/bai-ne-jp-yomogi-farm-banner.jpg",
+		name: "フランソワさんのよもぎ畑",
+		comment: `主に東方Projectのアレンジ楽曲を制作されている蓬屋ふらんさんの
+		サイトです。ここのサイトでは過去のアレンジ楽曲やイラストを見ることができます。
+		私はエクステンドアッシュ&nbsp;～蓬莱人のアレンジが特に好きです。`,
 	},
 ];
+links.forEach((e) => {
+	e.comment = e.comment?.replaceAll(/\s+/g, "");
+});
+
+const comment_mutual = "sougo";
+const comment_fav = "okini";
+
+const formed_links: (string | ExtLink)[] = ((links) => {
+	const result: (string | ExtLink)[] = new Array();
+	const mutuals = links.filter((link) => link.isMutual);
+	const favorites = links.filter((link) => !link.isMutual);
+	mutuals.length > 0 && result.push(comment_mutual);
+	mutuals.forEach((link) => result.push(link));
+	favorites.length > 0 && result.push(comment_fav);
+	favorites.forEach((link) => result.push(link));
+	return result;
+})(links);
 ---
 
 <BaseLayout title="links" iconName="link" displayFooter>
-	<ExternalLinks links={links} comment_mutual="相互(光栄です)" />
+	<div id="links-container">
+		{
+			formed_links.map((e) => {
+				return typeof e === "string" ? (
+					<h3>{e}</h3>
+				) : (
+					<section>
+						<div class="link">
+							<a href={e.href} class={!e.img ? "nameonly" : ""}>
+								{!!e.img ? (
+									<>
+										{e.name}
+										<br />
+										<img
+											src={e.img}
+											alt={e.img_alt ?? e.name}
+										/>
+									</>
+								) : (
+									e.name
+								)}
+							</a>
+						</div>
+						<div class="comment" set:html={e.comment ?? ""} />
+					</section>
+				);
+			})
+		}
+	</div>
+	<hr />
+	<p>
+		当サイトへのリンクはご自由に。ぜひ。<br />
+		バナーだよ:<br />
+		<img
+			src="/misononoa-cc-banner1.webp"
+			height="40px"
+			alt="banner1"
+			style="image-rendering: pixelated;"
+		/>
+		<img
+			src="/misononoa-cc-banner2.webp"
+			height="40px"
+			alt="banner2"
+			style="image-rendering: pixelated;"
+		/>
+		<br />
+		`image-rendering: pixelated;`をつけるとよいかもしれない。
+	</p>
 	<br />
-	<p style="font-size: small; color: gray;">
-		何かございましたら、恐れ入りますが下記アカウントまでご連絡ください。
+	<p slot="footer" style="font-size: small; color: gray;">
+		お気づきの点などございましたら、恐れ入りますが下記アカウントまでご連絡ください。
 	</p>
 </BaseLayout>
+
+<style>
+	#links-container > section {
+		margin-bottom: 18px;
+		border-left-style: dotted;
+		border-left-width: 3px;
+		border-left-color: lightpink;
+		padding-left: 5px;
+
+		div.link > a {
+			vertical-align: middle;
+			font-size: small;
+		}
+		div.link > a.nameonly {
+			font-size: medium;
+			font-weight: bold;
+		}
+		div.comment {
+			font-size: 95%;
+		}
+	}
+
+	#links-container > h3 {
+		margin-bottom: 3px;
+	}
+</style>
