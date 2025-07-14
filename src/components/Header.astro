@@ -1,14 +1,13 @@
 ---
-import "@fontsource/dotgothic16";
 import { Icon } from "astro-icon/components";
-import Navigation, { type NavLink } from "./navigation/Navigation.tsx";
+import Nav, { type NavLink } from "./Nav.vue";
 
 export interface Props {
 	title: string;
 	iconName: string;
 }
 const { title, iconName } = Astro.props;
-const linkprops: Array<NavLink> = [
+const linkprops: NavLink[] = [
 	{
 		href: "/",
 		name: "misononoa.cc",
@@ -37,7 +36,8 @@ const linkprops: Array<NavLink> = [
 		<Icon name={`fluent-emoji-flat:${iconName}`} height={25} class="icon" />
 		{title}
 	</h1>
-	<Navigation client:idle current={title} links={linkprops} />
+	<!-- <Navigation client:idle current={title} links={linkprops} /> -->
+	<Nav client:idle current={title} links={linkprops} />
 </header>
 
 <style>
