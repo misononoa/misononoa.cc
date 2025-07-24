@@ -15,16 +15,11 @@ importers:
         specifier: ^4.0.12
         version: 4.0.12
       '@astrojs/vercel':
-<<<<<<< HEAD
         specifier: ^8.2.3
         version: 8.2.3(astro@5.12.3(@types/node@24.1.0)(rollup@4.45.1)(typescript@5.8.3)(yaml@2.8.0))(react@18.3.1)(rollup@4.45.1)(vue@3.5.18(typescript@5.8.3))
       '@astrojs/vue':
         specifier: ^5.1.0
         version: 5.1.0(@types/node@24.1.0)(astro@5.12.3(@types/node@24.1.0)(rollup@4.45.1)(typescript@5.8.3)(yaml@2.8.0))(rollup@4.45.1)(vue@3.5.18(typescript@5.8.3))(yaml@2.8.0)
-=======
-        specifier: ^8.1.5
-        version: 8.1.5(astro@5.9.0(@types/node@22.15.29)(rollup@4.41.1)(typescript@5.8.3)(yaml@2.8.0))(react@18.3.1)(rollup@4.41.1)
->>>>>>> 4028f3f (関係なかったみたいなので戻す, パッケージ更新)
       '@fontsource/dotgothic16':
         specifier: ^5.2.6
         version: 5.2.6
@@ -35,13 +30,8 @@ importers:
         specifier: ^18.3.7
         version: 18.3.7(@types/react@18.3.23)
       astro:
-<<<<<<< HEAD
         specifier: ^5.12.3
         version: 5.12.3(@types/node@24.1.0)(rollup@4.45.1)(typescript@5.8.3)(yaml@2.8.0)
-=======
-        specifier: ^5.9.0
-        version: 5.9.0(@types/node@22.15.29)(rollup@4.41.1)(typescript@5.8.3)(yaml@2.8.0)
->>>>>>> 4028f3f (関係なかったみたいなので戻す, パッケージ更新)
       astro-icon:
         specifier: ^1.1.5
         version: 1.1.5
@@ -211,13 +201,8 @@ packages:
     resolution: {integrity: sha512-YvjJow9FxbhFFKDSuFnVCe2WxXk1zWc22fFePVNEaWJEu8IrZVlda6N0uHwzZrUM1il7NC9Mlp4MaJYbYd9JSg==}
     engines: {node: '>=6.9.0'}
 
-<<<<<<< HEAD
   '@babel/helpers@7.28.2':
     resolution: {integrity: sha512-/V9771t+EgXz62aCcyofnQhGM8DQACbRhvzKFsXKC9QM+5MadF8ZmIm0crDMaz3+o0h0zXfJnd4EhbYbxsrcFw==}
-=======
-  '@babel/helpers@7.27.6':
-    resolution: {integrity: sha512-muE8Tt8M22638HU31A3CgfSUciwz1fhATfoVai05aPXGor//CdWDCbnlY1yvBPo07njuVOCNGCSp/GTt12lIug==}
->>>>>>> 4028f3f (関係なかったみたいなので戻す, パッケージ更新)
     engines: {node: '>=6.9.0'}
 
   '@babel/parser@7.28.0':
@@ -274,13 +259,8 @@ packages:
     resolution: {integrity: sha512-mGe7UK5wWyh0bKRfupsUchrQGqvDbZDbKJw+kcRGSmdHVYrv+ltd0pnpDTVpiTqnaBru9iEvA8pz8W46v0Amwg==}
     engines: {node: '>=6.9.0'}
 
-<<<<<<< HEAD
   '@babel/types@7.28.2':
     resolution: {integrity: sha512-ruv7Ae4J5dUYULmeXw1gmb7rYRz57OWCPM57pHojnLq/3Z1CK2lNSLTCVjxVk1F/TZHwOZZrOWi0ur95BbLxNQ==}
-=======
-  '@babel/types@7.27.6':
-    resolution: {integrity: sha512-ETyHEk2VHHvl9b9jZP5IHPavHYk57EhanlRRuae9XCpb/j5bDCbPPMOBfCWhnl/7EDJz0jEMCi/RhccCE8r1+Q==}
->>>>>>> 4028f3f (関係なかったみたいなので戻す, パッケージ更新)
     engines: {node: '>=6.9.0'}
 
   '@capsizecss/unpack@2.4.0':
@@ -1021,13 +1001,8 @@ packages:
   astro-icon@1.1.5:
     resolution: {integrity: sha512-CJYS5nWOw9jz4RpGWmzNQY7D0y2ZZacH7atL2K9DeJXJVaz7/5WrxeyIxO8KASk1jCM96Q4LjRx/F3R+InjJrw==}
 
-<<<<<<< HEAD
   astro@5.12.3:
     resolution: {integrity: sha512-fU1hNPMkccm+FuonGsY5DFkC2QyuLCju++8L2ubzBtYBDBf6bmfgmVM7A2dK+Hl+ZJCUNgepsClhBpczj+2LRw==}
-=======
-  astro@5.9.0:
-    resolution: {integrity: sha512-AHF7oZDBQRwggHUG0bwBhRQjrDD+vJpCtPd0/GVxDB1hGRV0SQuFWS0UHX5bYczIqFcao1z9o9o0r2rQtHrTMg==}
->>>>>>> 4028f3f (関係なかったみたいなので戻す, パッケージ更新)
     engines: {node: 18.20.8 || ^20.3.0 || >=22.0.0, npm: '>=9.6.5', pnpm: '>=7.1.0'}
     hasBin: true
 
@@ -3009,26 +2984,15 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-<<<<<<< HEAD
   '@astrojs/vercel@8.2.3(astro@5.12.3(@types/node@24.1.0)(rollup@4.45.1)(typescript@5.8.3)(yaml@2.8.0))(react@18.3.1)(rollup@4.45.1)(vue@3.5.18(typescript@5.8.3))':
-=======
-  '@astrojs/vercel@8.1.5(astro@5.9.0(@types/node@22.15.29)(rollup@4.41.1)(typescript@5.8.3)(yaml@2.8.0))(react@18.3.1)(rollup@4.41.1)':
->>>>>>> 4028f3f (関係なかったみたいなので戻す, パッケージ更新)
     dependencies:
       '@astrojs/internal-helpers': 0.6.1
       '@vercel/analytics': 1.5.0(react@18.3.1)(vue@3.5.18(typescript@5.8.3))
       '@vercel/edge': 1.2.2
-<<<<<<< HEAD
       '@vercel/nft': 0.29.4(rollup@4.45.1)
       '@vercel/routing-utils': 5.1.1
       astro: 5.12.3(@types/node@24.1.0)(rollup@4.45.1)(typescript@5.8.3)(yaml@2.8.0)
       esbuild: 0.25.8
-=======
-      '@vercel/nft': 0.29.4(rollup@4.41.1)
-      '@vercel/routing-utils': 5.0.5
-      astro: 5.9.0(@types/node@22.15.29)(rollup@4.41.1)(typescript@5.8.3)(yaml@2.8.0)
-      esbuild: 0.25.5
->>>>>>> 4028f3f (関係なかったみたいなので戻す, パッケージ更新)
       tinyglobby: 0.2.14
     transitivePeerDependencies:
       - '@remix-run/react'
@@ -3085,21 +3049,12 @@ snapshots:
       '@babel/code-frame': 7.27.1
       '@babel/generator': 7.28.0
       '@babel/helper-compilation-targets': 7.27.2
-<<<<<<< HEAD
       '@babel/helper-module-transforms': 7.27.3(@babel/core@7.28.0)
       '@babel/helpers': 7.28.2
       '@babel/parser': 7.28.0
       '@babel/template': 7.27.2
       '@babel/traverse': 7.28.0
       '@babel/types': 7.28.2
-=======
-      '@babel/helper-module-transforms': 7.27.3(@babel/core@7.27.4)
-      '@babel/helpers': 7.27.6
-      '@babel/parser': 7.27.5
-      '@babel/template': 7.27.2
-      '@babel/traverse': 7.27.4
-      '@babel/types': 7.27.6
->>>>>>> 4028f3f (関係なかったみたいなので戻す, パッケージ更新)
       convert-source-map: 2.0.0
       debug: 4.4.1
       gensync: 1.0.0-beta.2
@@ -3110,17 +3065,10 @@ snapshots:
 
   '@babel/generator@7.28.0':
     dependencies:
-<<<<<<< HEAD
       '@babel/parser': 7.28.0
       '@babel/types': 7.28.2
       '@jridgewell/gen-mapping': 0.3.12
       '@jridgewell/trace-mapping': 0.3.29
-=======
-      '@babel/parser': 7.27.5
-      '@babel/types': 7.27.6
-      '@jridgewell/gen-mapping': 0.3.8
-      '@jridgewell/trace-mapping': 0.3.25
->>>>>>> 4028f3f (関係なかったみたいなので戻す, パッケージ更新)
       jsesc: 3.1.0
 
   '@babel/helper-annotate-as-pure@7.27.3':
@@ -3159,13 +3107,8 @@ snapshots:
 
   '@babel/helper-module-imports@7.27.1':
     dependencies:
-<<<<<<< HEAD
       '@babel/traverse': 7.28.0
       '@babel/types': 7.28.2
-=======
-      '@babel/traverse': 7.27.4
-      '@babel/types': 7.27.6
->>>>>>> 4028f3f (関係なかったみたいなので戻す, パッケージ更新)
     transitivePeerDependencies:
       - supports-color
 
@@ -3206,25 +3149,14 @@ snapshots:
 
   '@babel/helper-validator-option@7.27.1': {}
 
-<<<<<<< HEAD
   '@babel/helpers@7.28.2':
     dependencies:
       '@babel/template': 7.27.2
       '@babel/types': 7.28.2
-=======
-  '@babel/helpers@7.27.6':
-    dependencies:
-      '@babel/template': 7.27.2
-      '@babel/types': 7.27.6
->>>>>>> 4028f3f (関係なかったみたいなので戻す, パッケージ更新)
 
   '@babel/parser@7.28.0':
     dependencies:
-<<<<<<< HEAD
       '@babel/types': 7.28.2
-=======
-      '@babel/types': 7.27.6
->>>>>>> 4028f3f (関係なかったみたいなので戻す, パッケージ更新)
 
   '@babel/plugin-proposal-decorators@7.28.0(@babel/core@7.28.0)':
     dependencies:
@@ -3274,13 +3206,8 @@ snapshots:
   '@babel/template@7.27.2':
     dependencies:
       '@babel/code-frame': 7.27.1
-<<<<<<< HEAD
       '@babel/parser': 7.28.0
       '@babel/types': 7.28.2
-=======
-      '@babel/parser': 7.27.5
-      '@babel/types': 7.27.6
->>>>>>> 4028f3f (関係なかったみたいなので戻す, パッケージ更新)
 
   '@babel/traverse@7.28.0':
     dependencies:
@@ -3289,20 +3216,12 @@ snapshots:
       '@babel/helper-globals': 7.28.0
       '@babel/parser': 7.28.0
       '@babel/template': 7.27.2
-<<<<<<< HEAD
       '@babel/types': 7.28.2
-=======
-      '@babel/types': 7.27.6
->>>>>>> 4028f3f (関係なかったみたいなので戻す, パッケージ更新)
       debug: 4.4.1
     transitivePeerDependencies:
       - supports-color
 
-<<<<<<< HEAD
   '@babel/types@7.28.2':
-=======
-  '@babel/types@7.27.6':
->>>>>>> 4028f3f (関係なかったみたいなので戻す, パッケージ更新)
     dependencies:
       '@babel/helper-string-parser': 7.27.1
       '@babel/helper-validator-identifier': 7.27.1
@@ -3706,30 +3625,6 @@ snapshots:
 
   '@trysound/sax@0.2.0': {}
 
-<<<<<<< HEAD
-=======
-  '@types/babel__core@7.20.5':
-    dependencies:
-      '@babel/parser': 7.27.5
-      '@babel/types': 7.27.6
-      '@types/babel__generator': 7.27.0
-      '@types/babel__template': 7.4.4
-      '@types/babel__traverse': 7.20.7
-
-  '@types/babel__generator@7.27.0':
-    dependencies:
-      '@babel/types': 7.27.6
-
-  '@types/babel__template@7.4.4':
-    dependencies:
-      '@babel/parser': 7.27.5
-      '@babel/types': 7.27.6
-
-  '@types/babel__traverse@7.20.7':
-    dependencies:
-      '@babel/types': 7.27.6
-
->>>>>>> 4028f3f (関係なかったみたいなので戻す, パッケージ更新)
   '@types/debug@4.1.12':
     dependencies:
       '@types/ms': 2.1.0
@@ -4050,11 +3945,7 @@ snapshots:
       - debug
       - supports-color
 
-<<<<<<< HEAD
   astro@5.12.3(@types/node@24.1.0)(rollup@4.45.1)(typescript@5.8.3)(yaml@2.8.0):
-=======
-  astro@5.9.0(@types/node@22.15.29)(rollup@4.41.1)(typescript@5.8.3)(yaml@2.8.0):
->>>>>>> 4028f3f (関係なかったみたいなので戻す, パッケージ更新)
     dependencies:
       '@astrojs/compiler': 2.12.2
       '@astrojs/internal-helpers': 0.6.1
@@ -4956,13 +4847,8 @@ snapshots:
 
   magicast@0.3.5:
     dependencies:
-<<<<<<< HEAD
       '@babel/parser': 7.28.0
       '@babel/types': 7.28.2
-=======
-      '@babel/parser': 7.27.5
-      '@babel/types': 7.27.6
->>>>>>> 4028f3f (関係なかったみたいなので戻す, パッケージ更新)
       source-map-js: 1.2.1
 
   markdown-table@3.0.4: {}
