@@ -6,40 +6,56 @@ const client = createClient({
   apiKey: import.meta.env.MICROCMS_API_KEY,
 });
 
-
 export type BlogInfo = MicroCMSListContent & { title: string };
-const blogInfoFieldNames = ["id", "title", "createdAt", "updatedAt", "publishedAt", "revisedAt"];
+const blogInfoKeys = new Set([
+  "id",
+  "title",
+  "createdAt",
+  "updatedAt",
+  "publishedAt",
+  "revisedAt"
+]) satisfies ReadonlySet<keyof BlogInfo>;
 
-export type Blog = BlogInfo & {
-  content: string;
-};
+export type Blog = BlogInfo & { content: string };
+const blogKeys = new Set([
+  ...blogInfoKeys,
+  "content"
+]) satisfies ReadonlySet<keyof Blog>;
 
-export const getBlogInfos = ({ limit, offset }: { limit?: number, offset?: number }) =>
-  client.get<MicroCMSListResponse<BlogInfo>>({
+export const getBlogInfos = ({ limit, offset }: { limit?: number, offset?: number }) => {
+  return client.get<MicroCMSListResponse<BlogInfo>>({
     endpoint: "blogs",
-    queries: { limit, offset, fields: blogInfoFieldNames }
+    queries: {
+      limit,
+      offset,
+      fields: [...blogInfoKeys]
+    }
   });
+}
 
-export const getAllBlogInfos = async () =>
-  await client.getAllContents<BlogInfo>({
+export const getAllBlogInfos = async () => {
+  return await client.getAllContents<BlogInfo>({
     endpoint: "blogs",
-    queries: { fields: blogInfoFieldNames }
+    queries: { fields: [...blogInfoKeys] }
   });
+}
 
 export const getAllBlogIds = async () =>
   await client.getAllContentIds({ endpoint: "blogs" });
 
-export const getBlogDetail = async (contentId: string) =>
-  await client.getListDetail<Blog>({
+export const getBlogDetail = async (contentId: string) => {
+  return await client.getListDetail<Blog>({
     endpoint: "blogs",
     contentId
   });
+}
 
-export const getBlogDetails = async ({ limit, offset }: { limit?: number, offset?: number }) =>
-  client.get<MicroCMSListResponse<Blog>>({
+export const getBlogDetails = async ({ limit, offset }: { limit?: number, offset?: number }) => {
+  return client.get<MicroCMSListResponse<Blog>>({
     endpoint: "blogs",
     queries: {
       limit, offset,
-      fields: blogInfoFieldNames.concat(["content"])
+      fields: [...blogKeys]
     }
   });
+}
