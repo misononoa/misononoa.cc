@@ -9,17 +9,14 @@ export interface Props {
 }
 
 const { blog, showTitle, limitHeight } = Astro.props;
-const fields = new Array<{ label: string; value: Date }>();
-Object.entries(blog)
-    .map<[string, Date]>(([k, v]) => [k, new Date(v)])
-    .filter(([k, v]) => k.match(/At$/) && !!v.getDate())
-    .forEach(
-        ([k, v]) =>
-            fields
-                .map((field) => field.value)
-                .every((f) => f.getTime() !== v.getTime()) &&
-            fields.push({ label: k, value: v }),
-    );
+const fields: { k: string; v: Date }[] = (() => {
+    const dates = Object.entries(blog)
+        .map(([k, v]) => ({ k, v: new Date(Date.parse(v)) }))
+        .filter(({ k, v }) => k.match(/At$/) && !!v.getDate());
+    return [...new Set(dates.map(({ v }) => v.getTime()))]
+        .map((time) => dates.find(({ v }) => v.getTime() === time))
+        .filter((v) => !!v);
+})();
 ---
 
 <article>
@@ -27,7 +24,7 @@ Object.entries(blog)
         {
             showTitle ? (
                 <div class="article-title">
-                    <h3>{blog.title}</h3>
+                    <h3 style="margin-top: 0px;">{blog.title}</h3>
                 </div>
             ) : (
                 ""
@@ -38,11 +35,11 @@ Object.entries(blog)
                 <tbody>
                     {
                         fields
-                            .sort((a, b) => compareDate(a.value, b.value))
+                            .sort((a, b) => compareDate(a.v, b.v))
                             .map((e) => (
                                 <tr class="field">
-                                    <td>{e.label}:</td>
-                                    <td>{dateToString(e.value)}</td>
+                                    <td>{e.k}:</td>
+                                    <td>{dateToString(e.v)}</td>
                                 </tr>
                             ))
                     }
@@ -56,7 +53,7 @@ Object.entries(blog)
 
 <style>
     article {
-        margin-bottom: 25px;
+        margin-bottom: 30px;
         padding: 5px;
     }
 
