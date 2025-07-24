@@ -17,11 +17,7 @@
     "@fontsource/dotgothic16": "^5.2.6",
     "@types/react": "^18.3.23",
     "@types/react-dom": "^18.3.7",
-<<<<<<< HEAD
     "astro": "^5.12.3",
-=======
-    "astro": "^5.9.0",
->>>>>>> 4028f3f (関係なかったみたいなので戻す, パッケージ更新)
     "astro-icon": "^1.1.5",
     "microcms-js-sdk": "^3.2.0",
     "react": "^18.3.1",
@@ -35,7 +31,6 @@
   "packageManager": "pnpm@10.11.1",
   "engineStrict": true,
   "engines": {
-<<<<<<< HEAD
     "node": "22"
   },
   "pnpm": {
@@ -48,9 +43,5 @@
     "onlyBuiltDependencies": [
       "esbuild"
     ]
-=======
-    "node": "22",
-    "pnpm": "10"
->>>>>>> 4028f3f (関係なかったみたいなので戻す, パッケージ更新)
   }
 }
