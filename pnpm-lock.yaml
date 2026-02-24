@@ -23,6 +23,9 @@ importers:
       '@fontsource/dotgothic16':
         specifier: ^5.2.8
         version: 5.2.8
+      '@fontsource/m-plus-1-code':
+        specifier: ^5.2.8
+        version: 5.2.8
       '@types/react':
         specifier: ^18.3.28
         version: 18.3.28
@@ -601,6 +604,9 @@ packages:
 
   '@fontsource/dotgothic16@5.2.8':
     resolution: {integrity: sha512-kKLp0jtNURDwQwdBBHB7CFs/i5b6MVPNVEOy8EFbdWwKT9xQZbQqYIEjW1nKayqcs0Uh6imBCeUFuIBufEJK4w==}
+
+  '@fontsource/m-plus-1-code@5.2.8':
+    resolution: {integrity: sha512-CtAqOu5anzNfsC35iE5L1CGxdf2ur0qd4Ai+mxB6Kt9MKWZ3ieWEsAFimW0+7gNR+OX5KKP+XeYvjBOoQ38yNw==}
 
   '@iconify-json/fluent-emoji-flat@1.2.5':
     resolution: {integrity: sha512-5ShoOHJ0ezYEIMfp2zvbRiZpL1Af8Prg5v9pElaIQhfqwbyD57pzrp70g/rK2EjigajBq9/cPrJXh224HaP3TQ==}
@@ -3447,6 +3453,8 @@ snapshots:
     optional: true
 
   '@fontsource/dotgothic16@5.2.8': {}
+
+  '@fontsource/m-plus-1-code@5.2.8': {}
 
   '@iconify-json/fluent-emoji-flat@1.2.5':
     dependencies:
