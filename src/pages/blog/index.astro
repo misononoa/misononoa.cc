@@ -12,7 +12,7 @@ const response = await getBlogDetails({ limit: 3 });
 <BaseLayout title="blog" iconName="newspaper">
 	<Main>
 		{
-			response.contents.map((c) => (
+			response.map((c) => (
 				<Article blog={c} showTitle limitHeight>
 					<div style="font-weight: bold;">
 						<a href={`/blog/${c.id}`}>つづきをよむ</a>

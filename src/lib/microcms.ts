@@ -1,4 +1,4 @@
-import type { MicroCMSListContent, MicroCMSListResponse } from "microcms-js-sdk";
+import type { MicroCMSListContent } from "microcms-js-sdk";
 import { createClient } from "microcms-js-sdk";
 
 const client = createClient({
@@ -6,56 +6,47 @@ const client = createClient({
   apiKey: import.meta.env.MICROCMS_API_KEY,
 });
 
-export type BlogInfo = MicroCMSListContent & { title: string };
-const blogInfoKeys = new Set([
-  "id",
-  "title",
-  "createdAt",
-  "updatedAt",
-  "publishedAt",
-  "revisedAt"
-]) satisfies ReadonlySet<keyof BlogInfo>;
+export type Blog = MicroCMSListContent & { title: string, content: string };
 
-export type Blog = BlogInfo & { content: string };
-const blogKeys = new Set([
-  ...blogInfoKeys,
-  "content"
-]) satisfies ReadonlySet<keyof Blog>;
+const allBlogIds: string[] = [];
 
-export const getBlogInfos = ({ limit, offset }: { limit?: number, offset?: number }) => {
-  return client.get<MicroCMSListResponse<BlogInfo>>({
-    endpoint: "blogs",
-    queries: {
-      limit,
-      offset,
-      fields: [...blogInfoKeys]
-    }
-  });
+export const getAllBlogIds = async () => {
+  if (allBlogIds.length == 0) {
+    allBlogIds.push(...await client.getAllContentIds({ endpoint: "blogs" }));
+  }
+  return allBlogIds;
 }
 
-export const getAllBlogInfos = async () => {
-  return await client.getAllContents<BlogInfo>({
-    endpoint: "blogs",
-    queries: { fields: [...blogInfoKeys] }
-  });
-}
-
-export const getAllBlogIds = async () =>
-  await client.getAllContentIds({ endpoint: "blogs" });
+const allBlogDetails = new Map<string, Blog>();
 
 export const getBlogDetail = async (contentId: string) => {
-  return await client.getListDetail<Blog>({
-    endpoint: "blogs",
-    contentId
-  });
+  let blogDetail = allBlogDetails.get(contentId);
+  if (!blogDetail) {
+    blogDetail = await client.getListDetail<Blog>({
+      endpoint: "blogs",
+      contentId
+    });
+    allBlogDetails.set(contentId, blogDetail);
+  }
+  return blogDetail;
+}
+
+export const getAllBlogs = async () => {
+  const blogInfos: Blog[] = [];
+  for (let id of await getAllBlogIds()) {
+    blogInfos.push(await getBlogDetail(id));
+  }
+  return blogInfos;
 }
 
 export const getBlogDetails = async ({ limit, offset }: { limit?: number, offset?: number }) => {
-  return client.get<MicroCMSListResponse<Blog>>({
-    endpoint: "blogs",
-    queries: {
-      limit, offset,
-      fields: [...blogKeys]
-    }
-  });
+  const blogDetails = (await getAllBlogs()).sort((a, b) => Date.parse(a.createdAt) - Date.parse(b.createdAt)).reverse();
+  const result = [];
+  for (let i: number = 0; i < blogDetails.length; i++) {
+    if (!!limit && i >= limit) break;
+    const idx = i + (offset ?? 0);
+    if (idx >= blogDetails.length) break;
+    result.push(blogDetails[idx]);
+  }
+  return result;
 }

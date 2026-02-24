@@ -4,7 +4,7 @@ import { getBlogDetails, type Blog } from "lib/microcms";
 export const GET = async () => {
     const blogDetails: Blog[] = (
         await getBlogDetails({ limit: 20 })
-    ).contents;
+    );
     return rss({
         title: "misononoaのブログ",
         description: "misononoaのブログです。",
