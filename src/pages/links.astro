@@ -16,9 +16,10 @@ const links: ExtLink[] = [
 		img: "/ext/yuinoid-neocities-org-banner.gif",
 		name: "100%health",
 		isMutual: true,
-		comment: `主にFediverse上で活動されているいど子さん
+		comment: `主にFediverseやTwitch上で活動されているいど子さん
 		のサイトです。このサイトでは分散SNS関連年表(とても有益)や
-		素敵なイラストなどを見ることができます。`,
+		素敵なイラストなどを見ることができます。Twitchでの配信も大変興味深く、
+		おすすめです。`,
 	},
 	{
 		href: "https://t3tekuno.neocities.org",
@@ -79,7 +80,8 @@ const links: ExtLink[] = [
 	{
 		href: "https://waxwing.neocities.org/",
 		name: "false azure in the windowpane",
-		comment: `鳩羽つぐさんのファンアートを描かれていた所から知りました。
+		comment: `イラストやゲームを制作されているio(waxwing)さんのホームページです。
+		鳩羽つぐさんのファンアートを描かれていた所から知りました。
 		絵柄もモチーフもWebデザインも大変素敵です。<br/>
 		制作されたホラーゲーム'Flesh,&nbsp;Blood,&nbsp;&&nbsp;Concrete'は
 		itch.ioから無料でプレイでき、おすすめ。`,
@@ -90,7 +92,7 @@ const links: ExtLink[] = [
 		name: "ウスイのホームページ",
 		comment: `ゲーム実況や旅行動画などを投稿されているウスイさんのホームページです。
 		このページではプレイされたゲームの情報やお絵描き掲示板を見ることができます。
-		レトロゲームの実況や道路探索動画が興味深く、毎日見ています。`,
+		生配信でのゲーム実況や道路探索動画が興味深く、毎日見ています。`,
 	},
 	{
 		href: "http://www.himawarihouse.com/",
@@ -107,7 +109,7 @@ links.forEach((e) => {
 const comment_mutual = "sougo";
 const comment_fav = "okini";
 
-const formed_links: (string | ExtLink)[] = ((links) => {
+const formedLinks: (string | ExtLink)[] = ((links) => {
 	const result: (string | ExtLink)[] = new Array();
 	const mutuals = links.filter((link) => link.isMutual);
 	const favorites = links.filter((link) => !link.isMutual);
@@ -122,28 +124,30 @@ const formed_links: (string | ExtLink)[] = ((links) => {
 <BaseLayout title="links" iconName="link" displayFooter>
 	<div id="links-container">
 		{
-			formed_links.map((e) => {
-				return typeof e === "string" ? (
-					<h3>{e}</h3>
-				) : (
+			formedLinks.map((e) => {
+				if (typeof e === "string") {
+					return <h3>{e}</h3>;
+				}
+				const className = !e.img ? "nameonly" : "";
+				const imgAlt = e.img_alt ?? e.name;
+				const anchor = (
+					<a href={e.href} class={className}>
+						{!!e.img ? (
+							<>
+								{e.name}
+								<br />
+								<img src={e.img} alt={imgAlt} />
+							</>
+						) : (
+							e.name
+						)}
+					</a>
+				);
+				const comment = e.comment ?? "";
+				return (
 					<section>
-						<div class="link">
-							<a href={e.href} class={!e.img ? "nameonly" : ""}>
-								{!!e.img ? (
-									<>
-										{e.name}
-										<br />
-										<img
-											src={e.img}
-											alt={e.img_alt ?? e.name}
-										/>
-									</>
-								) : (
-									e.name
-								)}
-							</a>
-						</div>
-						<div class="comment" set:html={e.comment ?? ""} />
+						<div class="link">{anchor}</div>
+						<div class="comment" set:html={comment} />
 					</section>
 				);
 			})

@@ -16,16 +16,16 @@ const { current, next, prev } = pager.url;
         <tbody>
             {
                 pager.data.map((content) => {
-                    const date = content.publishedAt;
+                    const date = !!content.publishedAt
+                        ? formatDate(content.publishedAt)
+                        : "none";
                     return (
                         <tr>
                             <td>
                                 <a href={`/blog/${content.id}`}>
-                                    {content.title ?? "no_title"}{" "}
+                                    {content.title ?? "no_title"}
                                 </a>
-                            </td>
-                            <td class="date">
-                                {date ? formatDate(date) : "none"}
+                                <span class="date">{date}</span>
                             </td>
                         </tr>
                     );
@@ -74,19 +74,12 @@ const { current, next, prev } = pager.url;
     }
 
     .list td {
+        height: 2.5rem;
         border-bottom: dotted 3px lightgrey;
     }
 
-    .list td > * {
-        line-height: 30px;
-    }
-
-    .list td.date {
-        text-align: end;
-    }
-
     .date {
-        padding: 5px 5px 5px 0;
+        margin-left: 1rem;
         color: gray;
         font-size: 70%;
     }

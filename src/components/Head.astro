@@ -1,18 +1,17 @@
 ---
-import { ClientRouter } from "astro:transitions";
 export interface Props {
 	iconName?: string;
 	title: string;
 }
 const { iconName = "man-walking", title } = Astro.props;
+
+const iconUrl = `https://cdn.jsdelivr.net/npm/fluentui-emoji@latest/icons/flat/${iconName}.svg`;
 ---
 
 <head>
 	<meta charset="utf-8" />
-	<link rel="icon" href={`https://cdn.jsdelivr.net/npm/fluentui-emoji@latest/icons/flat/${iconName}.svg`}>
+	<link rel="icon" href={iconUrl} />
 	<meta name="viewport" content="width=device-width" />
 	<meta name="generator" content={Astro.generator} />
 	<title>{title}</title>
-	<ClientRouter />
 </head>
-
