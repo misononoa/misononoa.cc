@@ -1,5 +1,6 @@
 ---
 import type { Page } from "astro";
+import { LIST_PER_PAGE } from "lib/constants";
 import type { Blog } from "lib/microcms";
 import { formatDate } from "lib/util";
 
@@ -9,30 +10,31 @@ export interface Props {
 
 const { pager } = Astro.props;
 const { current, next, prev } = pager.url;
+const colCount = 3;
+const rowCount = Math.ceil(
+    Math.min(LIST_PER_PAGE, pager.data.length) / colCount,
+);
+const listPerPage = LIST_PER_PAGE;
 ---
 
-<div class="list">
-    <table>
-        <tbody>
-            {
-                pager.data.map((content) => {
-                    const date = !!content.publishedAt
-                        ? formatDate(content.publishedAt)
-                        : "none";
-                    return (
-                        <tr>
-                            <td>
-                                <a href={`/blog/${content.id}`}>
-                                    {content.title ?? "no_title"}
-                                </a>
-                                <span class="date">{date}</span>
-                            </td>
-                        </tr>
-                    );
-                })
-            }
-        </tbody>
-    </table>
+<div class="blogs">
+    {
+        pager.data.map((content) => {
+            const date = !!content.publishedAt
+                ? formatDate(content.publishedAt)
+                : "none";
+            return (
+                <div class="bloginfo">
+                    <div>
+                        <a href={`/blog/${content.id}`}>
+                            {content.title ?? "no_title"}
+                        </a>
+                    </div>
+                    <div class="date">{date}</div>
+                </div>
+            );
+        })
+    }
 </div>
 <div class="pager">
     <span class="next-prev">
@@ -63,23 +65,30 @@ const { current, next, prev } = pager.url;
     </span>
 </div>
 
-<style>
-    .list {
-        display: flex;
-        justify-content: center;
+<style define:vars={{ colCount, rowCount, listPerPage }}>
+    .blogs {
+        display: grid;
+        grid-template-columns: repeat(var(--colCount), 1fr);
+        grid-template-rows: repeat(var(--rowCount), 1fr);
+        gap: 1rem;
     }
 
-    .list > table {
-        width: 100%;
+    @media screen and (max-width: 70ch) {
+        .blogs {
+            grid-template-columns: repeat(1, 1fr);
+            grid-template-rows: repeat(var(--listPerPage), 1fr);
+            row-gap: 0.7rem;
+        }
     }
 
-    .list td {
-        height: 2.5rem;
-        border-bottom: dotted 3px lightgrey;
+    .blogs > .bloginfo {
+        border-left-style: dotted;
+        border-left-width: 3px;
+        border-left-color: var(--bordercolor);
+        padding-left: 5px;
     }
 
     .date {
-        margin-left: 1rem;
         color: gray;
         font-size: 70%;
     }
