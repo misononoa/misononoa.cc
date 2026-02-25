@@ -10,11 +10,9 @@ export interface Props {
 
 const { pager } = Astro.props;
 const { current, next, prev } = pager.url;
+const listPerPage = Math.min(LIST_PER_PAGE, pager.data.length);
 const colCount = 3;
-const rowCount = Math.ceil(
-    Math.min(LIST_PER_PAGE, pager.data.length) / colCount,
-);
-const listPerPage = LIST_PER_PAGE;
+const rowCount = Math.ceil(listPerPage / colCount);
 ---
 
 <div class="blogs">
