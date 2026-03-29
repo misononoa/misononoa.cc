@@ -8,19 +8,6 @@ import ToggleList from "./ToggleList.astro";
 import { type AccountDetail } from "./Contact.astro";
 
 const display = Astro.props.display ? "block" : "none";
-const accounts: Array<AccountDetail> = [
-	{ hostname: "msky.misononoa.cc", username: "@misononoa", text: "Misskey" },
-	{ hostname: "x.com", username: "@misononoa", text: "x.com" },
-	{
-		hostname: "bsky.app",
-		path: "profile",
-		username: "misononoa.cc",
-		text: "Bluesky",
-	},
-	{ hostname: "mixi.social", username: "@misononoa", text: "Mixi2" },
-	{ hostname: "www.threads.net", username: "@misononoa", text: "Threads" },
-	{ hostname: "github.com", username: "misononoa", text: "GitHub" },
-];
 
 const credits: Array<string> = [
 	"Astro by Astro Contributors",
@@ -35,7 +22,7 @@ const credits: Array<string> = [
 	<aside>
 		<div>
 			<div style="margin: 0;">ごれんらく</div>
-			<Contact accounts={accounts} />
+			<Contact />
 		</div>
 		<div id="credits">
 			<ToggleList

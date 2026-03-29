@@ -1,25 +1,41 @@
 ---
-export type AccountDetail = {
-	hostname: string;
-	path?: string;
-	username: string;
-	text: string;
-};
-
-export interface Props {
-	accounts: Array<AccountDetail>;
-}
-
-const linkprops = Astro.props.accounts.map<[string, string]>((a) => [
-	`https://${a.hostname}/` +
-		(!!a.path ? `${a.path}/${a.username}` : `${a.username}`),
-	a.text.toLowerCase().match("misskey") ? a.text + "🍀" : a.text,
-]);
+const accounts: [string, string][] = [
+	{
+		host: "https://msky.misononoa.cc",
+		username: "@misononoa",
+		text: "Misskey",
+	},
+	{ host: "https://x.com", username: "@misononoa", text: "x.com" },
+	{ host: "mailto://me@misononoa.cc", text: "email" },
+	{
+		host: "https://bsky.app",
+		path: "profile",
+		username: "misononoa.cc",
+		text: "Bluesky",
+	},
+	{ host: "https://mixi.social", username: "@misononoa", text: "Mixi2" },
+	{
+		host: "https://www.threads.net",
+		username: "@misononoa",
+		text: "Threads",
+	},
+	{ host: "https://github.com", username: "misononoa", text: "GitHub" },
+].map<[string, string]>((a) => {
+	if (!!a.username) {
+		return [
+			`${a.host}/` +
+				(!!a.path ? `${a.path}/${a.username}` : `${a.username}`),
+			a.text.toLowerCase().match("misskey") ? a.text + "🍀" : a.text,
+		];
+	} else {
+		return [a.host, a.text];
+	}
+});
 ---
 
 <ul class="horizontal-list">
 	{
-		linkprops.map(([href, text]) => (
+		accounts.map(([href, text]) => (
 			<li class="item">
 				<a href={href}>{text}</a>
 			</li>
