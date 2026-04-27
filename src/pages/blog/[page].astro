@@ -19,7 +19,7 @@ const colCount = 2;
 const rowCount = Math.ceil(listPerPage / colCount);
 ---
 
-<BaseLayout title="blog" iconName="ledger">
+<BaseLayout title="blog" iconName="newspaper">
 	<Main>
 		<div class="blogposts">
 			{
@@ -78,14 +78,10 @@ const rowCount = Math.ceil(listPerPage / colCount);
 		display: grid;
 		grid-template-columns: repeat(var(--colCount), 1fr);
 		grid-template-rows: repeat(var(--rowCount), 1fr);
-		gap: 1.2rem;
+		gap: 2rem 1.3rem;
 	}
 
 	.blogposts > .bloginfo {
-		border-left-style: dotted;
-		border-left-width: 3px;
-		border-left-color: var(--bordercolor);
-		padding-left: 5px;
 		max-height: 20rem;
 		overflow: hidden;
 		position: relative;
