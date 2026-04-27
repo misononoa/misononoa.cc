@@ -1,0 +1,165 @@
+---
+import type { GetStaticPaths, GetStaticPathsOptions } from "astro";
+import { getAllBlogs, type Blog } from "lib/microcms.ts";
+import { LIST_PER_PAGE } from "lib/constants.ts";
+import { formatDate } from "lib/util.ts";
+import BaseLayout from "layouts/BaseLayout.astro";
+import Main from "components/Main.astro";
+
+export const prerender = true;
+export const getStaticPaths = (async ({ paginate }: GetStaticPathsOptions) => {
+	const blogs: Blog[] = await getAllBlogs();
+	return paginate(blogs, { pageSize: LIST_PER_PAGE });
+}) satisfies GetStaticPaths;
+
+const { page } = Astro.props;
+const { current, next, prev } = page.url;
+const listPerPage = Math.min(LIST_PER_PAGE, page.data.length);
+const colCount = 2;
+const rowCount = Math.ceil(listPerPage / colCount);
+---
+
+<BaseLayout title="blog" iconName="ledger">
+	<Main>
+		<div class="blogposts">
+			{
+				page.data.map((blog) => {
+					const date = !!blog.publishedAt
+						? formatDate(blog.publishedAt)
+						: "none";
+					const content = blog.content.substring(0, 800);
+					return (
+						<div class="bloginfo">
+							<div>
+								<a href={`/blog/${blog.id}`}>
+									{blog.title ?? "no_title"}
+								</a>
+							</div>
+							<div class="date">{date}</div>
+							<div class="content">{content}</div>
+						</div>
+					);
+				})
+			}
+		</div>
+		<div class="pager">
+    <span class="next-prev">
+        <a href={prev ?? current}>○</a>
+    </span>
+	<span class="page-numbers">
+        {
+			new Array(page.lastPage)
+				.fill(0)
+				.map((_, i) => i + 1)
+				.map(
+					(i) =>
+						[
+							`/blog/${i}`,
+							i === page.currentPage ? "current" : "",
+							i,
+						] satisfies [string, string, number],
+				)
+				.map(([path, className, i]) => (
+					<a href={path} class={className}>
+						{i}
+					</a>
+				))
+		}
+    </span>
+	<span class="next-prev">
+        <a href={next ?? current}>●</a>
+    </span>
+		</div>
+	</Main>
+</BaseLayout>
+
+<style define:vars={{ colCount, rowCount, listPerPage }}>
+	.blogposts {
+		display: grid;
+		grid-template-columns: repeat(var(--colCount), 1fr);
+		grid-template-rows: repeat(var(--rowCount), 1fr);
+		gap: 1.2rem;
+	}
+
+	.blogposts > .bloginfo {
+		border-left-style: dotted;
+		border-left-width: 3px;
+		border-left-color: var(--bordercolor);
+		padding-left: 5px;
+		max-height: 20rem;
+		overflow: hidden;
+		position: relative;
+	}
+
+	.blogposts > .bloginfo:after {
+		content: "";
+		position: absolute;
+		border-style: none;
+		left: 0;
+		bottom: 0;
+		z-index: 1;
+		width: 100%;
+		height: 120px;
+		background: linear-gradient(
+			rgba(255, 255, 255, 0) 0,
+			var(--bgcolor) 120px
+		);
+	}
+
+	@media screen and (max-width: 120ch) {
+		.blogposts {
+			grid-template-columns: repeat(1, 1fr);
+			grid-template-rows: repeat(var(--listPerPage), 1fr);
+		}
+	}
+
+	.blogposts > .bloginfo > .content {
+		white-space: wrap;
+		overflow-wrap: anywhere;
+	}
+
+	.date {
+		color: gray;
+		font-size: 70%;
+	}
+
+	.pager {
+		display: flex;
+		justify-content: center;
+		width: 100%;
+		margin: 20px 0 0 0;
+		font-size: large;
+		color: var(--linkcolor);
+	}
+
+	.next-prev {
+		margin: 0 10px;
+	}
+
+	.next-prev > a {
+		font-weight: bolder;
+		color: black;
+	}
+
+	.page-numbers {
+		display: inline-flex;
+		vertical-align: middle;
+		max-width: 40%;
+		overflow-x: scroll;
+		scrollbar-width: none;
+	}
+
+	.page-numbers::-webkit-scrollbar {
+		display: none;
+	}
+
+	.page-numbers > * {
+		height: 40px;
+		margin: 0 5px;
+	}
+
+	.current {
+		font-weight: bolder;
+		color: black;
+	}
+</style>

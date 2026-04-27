@@ -12,7 +12,7 @@ html {
 
 body {
     margin: 0 auto;
-    max-width: 70ch;
+    max-width: 100ch;
     height: 100%;
     line-height: 1.5rem;
 }
@@ -23,7 +23,7 @@ hr {
     margin-bottom: 1.5rem;
 }
 
-@media screen and (max-width: 70ch) {
+@media screen and (max-width: 120ch) {
     body {
         margin: 3ch;
     }

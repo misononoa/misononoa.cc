@@ -6,7 +6,7 @@ import BaseLayout from "layouts/BaseLayout.astro";
 import Article from "components/Article.astro";
 import { getBlogDetails } from "lib/microcms";
 
-const response = await getBlogDetails({ limit: 3 });
+const response = await getBlogDetails({ limit: 2 });
 ---
 
 <BaseLayout title="blog" iconName="newspaper">
@@ -20,7 +20,7 @@ const response = await getBlogDetails({ limit: 3 });
 				</Article>
 			))
 		}
-		<div class="goto-bloglist"><a href="/blogs/1">ブログ一覧へ</a></div>
+		<div class="goto-bloglist"><a href="/blog/1">ブログ一覧へ</a></div>
 	</Main>
 </BaseLayout>
 

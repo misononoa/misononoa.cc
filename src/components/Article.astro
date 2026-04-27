@@ -20,11 +20,11 @@ const fields: { k: string; v: Date }[] = (() => {
 ---
 
 <article>
-    <div class={limitHeight ? "limit-height" : ""}>
+    <div class={!!limitHeight ? "limit-height" : ""}>
         {
             showTitle ? (
                 <div class="article-title">
-                    <h3 style="margin-top: 0px;">{blog.title}</h3>
+                    <h3 style="margin-top: 0;">{blog.title}</h3>
                 </div>
             ) : (
                 ""
@@ -73,7 +73,7 @@ const fields: { k: string; v: Date }[] = (() => {
 
     .limit-height {
         overflow: hidden;
-        max-height: 500px;
+        max-height: 50rem;
         position: relative;
     }
 
