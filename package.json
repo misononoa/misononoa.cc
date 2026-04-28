@@ -29,14 +29,14 @@
   "devDependencies": {
     "@iconify-json/fluent-emoji-flat": "^1.2.5"
   },
-  "packageManager": "pnpm@10.30.2",
+  "packageManager": "pnpm@10.33.0",
   "engineStrict": true,
   "engines": {
-    "node": ">=22"
+    "node": ">=24"
   },
   "pnpm": {
     "executionEnv": {
-      "nodeVersion": "24.13.1"
+      "nodeVersion": "24.15.0"
     },
     "ignoredBuiltDependencies": [
       "sharp"
