@@ -1,9 +1,9 @@
 ---
 import type { GetStaticPaths } from "astro";
+import { getAllBlogIds, getBlogDetail, type Blog } from "lib/microcms";
+import { compareDate, dateToString } from "lib/util.ts";
 import BaseLayout from "layouts/BaseLayout.astro";
 import Main from "components/Main.astro";
-import Article from "components/Article.astro";
-import { getAllBlogIds, getBlogDetail, type Blog } from "lib/microcms";
 
 export const prerender = true;
 export const getStaticPaths = (async () => {
@@ -14,11 +14,46 @@ export const getStaticPaths = (async () => {
 }) satisfies GetStaticPaths;
 
 const { blogId } = Astro.params;
+
 const blog: Blog = await getBlogDetail(blogId);
+
+const fields: { k: string; v: Date }[] = (() => {
+	const dates = Object.entries(blog)
+		.map(([k, v]) => ({ k, v: new Date(Date.parse(v)) }))
+		.filter(({ k, v }) => k.match(/At$/) && !!v.getDate());
+	return [...new Set(dates.map(({ v }) => v.getTime()))]
+		.map((time) => dates.find(({ v }) => v.getTime() === time))
+		.filter((v) => !!v)
+		.sort((a, b) => compareDate(a.v, b.v));
+})();
 ---
 
 <BaseLayout title={blog.title ?? "no_title"}>
-	<Main>
-		<Article blog={blog} />
-	</Main>
+    <Main>
+        <article>
+            <div class="article-info">
+				{fields.map((e) => (
+                        <div>{e.k}:</div>
+                        <div>{dateToString(e.v)}</div>
+				))}
+            </div>
+            <div set:html={blog.content}/>
+        </article>
+    </Main>
 </BaseLayout>
+
+<style>
+    article {
+        margin-bottom: 30px;
+        padding: 5px;
+    }
+
+    .article-info {
+        display: grid;
+        grid-template-columns: 1fr 9fr;
+        gap: 0.3rem;
+        width: 100%;
+        color: gray;
+        font-size: smaller;
+    }
+</style>

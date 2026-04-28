@@ -20,8 +20,8 @@ const rowCount = Math.ceil(listPerPage / colCount);
 ---
 
 <BaseLayout title="blog" iconName="newspaper">
-	<Main>
-		<div class="blogposts">
+    <Main>
+        <div class="blogposts">
 			{
 				page.data.map((blog) => {
 					const date = !!blog.publishedAt
@@ -29,133 +29,125 @@ const rowCount = Math.ceil(listPerPage / colCount);
 						: "none";
 					const content = blog.content.substring(0, 800);
 					return (
-						<div class="bloginfo">
-							<div>
-								<a href={`/blog/${blog.id}`}>
-									{blog.title ?? "no_title"}
-								</a>
-							</div>
-							<div class="date">{date}</div>
-							<div class="content">{content}</div>
-						</div>
+                            <a href={`/blog/${blog.id}`} class="bloginfo">
+                                <div>{blog.title ?? "no_title"}</div>
+                                <div class="date">{date}</div>
+                                <div class="content">{content}</div>
+                            </a>
 					);
 				})
 			}
-		</div>
-		<div class="pager">
-    <span class="next-prev">
-        <a href={prev ?? current}>○</a>
-    </span>
-	<span class="page-numbers">
-        {
-			new Array(page.lastPage)
-				.fill(0)
-				.map((_, i) => i + 1)
-				.map(
-					(i) =>
-						[
-							`/blog/${i}`,
-							i === page.currentPage ? "current" : "",
-							i,
-						] satisfies [string, string, number],
-				)
-				.map(([path, className, i]) => (
-					<a href={path} class={className}>
-						{i}
-					</a>
-				))
-		}
-    </span>
-	<span class="next-prev">
-        <a href={next ?? current}>●</a>
-    </span>
-		</div>
-	</Main>
+        </div>
+        <div class="pager">
+            <span class="next-prev">
+                <a href={prev ?? current}>○</a>
+            </span>
+            <span class="page-numbers">
+                {
+                    (() => {
+                        const pageLinks = [];
+                        for (let i = 1; i < page.lastPage + 1; i++) {
+                            const anchor = <a href={`/blog/${i}`}
+                               class={page.currentPage ? "currentPage" : ""}>
+                                {i}
+                            </a>;
+                            pageLinks.push(anchor);
+                        }
+                        return pageLinks;
+                    })()
+                }
+            </span>
+            <span class="next-prev">
+                <a href={next ?? current}>●</a>
+            </span>
+        </div>
+    </Main>
 </BaseLayout>
 
 <style define:vars={{ colCount, rowCount, listPerPage }}>
-	.blogposts {
-		display: grid;
-		grid-template-columns: repeat(var(--colCount), 1fr);
-		grid-template-rows: repeat(var(--rowCount), 1fr);
-		gap: 2rem 1.3rem;
-	}
+    .blogposts {
+        display: grid;
+        grid-template-columns: repeat(var(--colCount), 1fr);
+        grid-template-rows: repeat(var(--rowCount), 1fr);
+        gap: 1.3rem;
+    }
 
-	.blogposts > .bloginfo {
-		max-height: 20rem;
-		overflow: hidden;
-		position: relative;
-	}
+    @media screen and (max-width: 120ch) {
+        .blogposts {
+            grid-template-columns: repeat(1, 1fr);
+            grid-template-rows: repeat(var(--listPerPage), 1fr);
+        }
+    }
 
-	.blogposts > .bloginfo:after {
-		content: "";
-		position: absolute;
-		border-style: none;
-		left: 0;
-		bottom: 0;
-		z-index: 1;
-		width: 100%;
-		height: 120px;
-		background: linear-gradient(
-			rgba(255, 255, 255, 0) 0,
-			var(--bgcolor) 120px
-		);
-	}
+    .bloginfo {
+        max-height: 20rem;
+        overflow: hidden;
+        position: relative;
+    }
 
-	@media screen and (max-width: 120ch) {
-		.blogposts {
-			grid-template-columns: repeat(1, 1fr);
-			grid-template-rows: repeat(var(--listPerPage), 1fr);
-		}
-	}
+    .bloginfo:after {
+        content: "";
+        position: absolute;
+        border-style: none;
+        left: 0;
+        bottom: 0;
+        z-index: 1;
+        width: 100%;
+        height: 120px;
+        background: linear-gradient(
+                rgba(255, 255, 255, 0) 0,
+                var(--bgcolor) 120px
+        );
+    }
 
-	.blogposts > .bloginfo > .content {
-		white-space: wrap;
-		overflow-wrap: anywhere;
-	}
+    .content {
+        white-space: wrap;
+        overflow-wrap: anywhere;
+        color: initial;
+    }
 
-	.date {
-		color: gray;
-		font-size: 70%;
-	}
+    .date {
+        color: gray;
+        font-size: 70%;
+    }
 
-	.pager {
-		display: flex;
-		justify-content: center;
-		width: 100%;
-		margin: 20px 0 0 0;
-		font-size: large;
-		color: var(--linkcolor);
-	}
+    .pager {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        margin: 20px 0 0 0;
+        font-size: large;
+        color: var(--linkcolor);
+    }
 
-	.next-prev {
-		margin: 0 10px;
-	}
+    .next-prev {
+        margin: 0 10px;
+    }
 
-	.next-prev > a {
-		font-weight: bolder;
-		color: black;
-	}
+    .next-prev > a {
+        font-weight: bolder;
+        color: black;
+    }
 
-	.page-numbers {
-		display: inline-flex;
-		vertical-align: middle;
-		max-width: 40%;
-		overflow-x: scroll;
-		scrollbar-width: none;
-	}
+    .page-numbers {
+        display: inline-flex;
+        vertical-align: middle;
+        max-width: 40%;
+        overflow-x: scroll;
+        scrollbar-width: none;
+    }
 
-	.page-numbers::-webkit-scrollbar {
-		display: none;
-	}
+    .page-numbers::-webkit-scrollbar {
+        display: none;
+    }
 
-	.page-numbers > * {
-		height: 40px;
-		margin: 0 5px;
-	}
+    .page-numbers > * {
+        height: 40px;
+        margin: 0 5px;
+    }
 
-	.current {
-		font-weight: bolder;
-		color: black;
-	}
+    .current {
+        font-weight: bolder;
+        color: black;
+    }
 </style>
