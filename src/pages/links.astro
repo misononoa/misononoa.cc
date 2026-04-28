@@ -110,7 +110,7 @@ const comment_mutual = "sougo";
 const comment_fav = "okini";
 
 const formedLinks: (string | ExtLink)[] = ((links) => {
-	const result: (string | ExtLink)[] = new Array();
+	const result: (string | ExtLink)[] = [];
 	const mutuals = links.filter((link) => link.isMutual);
 	const favorites = links.filter((link) => !link.isMutual);
 	mutuals.length > 0 && result.push(comment_mutual);
@@ -121,7 +121,7 @@ const formedLinks: (string | ExtLink)[] = ((links) => {
 })(links);
 ---
 
-<BaseLayout title="links" iconName="link" displayFooter>
+<BaseLayout title="links" iconName="link" footer="show">
 	<div id="links-container">
 		{
 			formedLinks.map((e) => {
@@ -159,13 +159,13 @@ const formedLinks: (string | ExtLink)[] = ((links) => {
 		バナーだよ:<br />
 		<img
 			src="/misononoa-cc-banner1.webp"
-			height="40px"
+			height="40"
 			alt="banner1"
 			style="image-rendering: pixelated;"
 		/>
 		<img
 			src="/misononoa-cc-banner2.webp"
-			height="40px"
+			height="40"
 			alt="banner2"
 			style="image-rendering: pixelated;"
 		/>
@@ -174,7 +174,7 @@ const formedLinks: (string | ExtLink)[] = ((links) => {
 	</p>
 	<br />
 	<p slot="footer" style="font-size: small; color: gray;">
-		お気づきの点などございましたら、恐れ入りますが下記アカウントまでご連絡ください。
+		お気づきの点などございましたら、恐れ入りますが下記までご連絡ください。
 	</p>
 </BaseLayout>
 

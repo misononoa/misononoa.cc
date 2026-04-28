@@ -6,15 +6,17 @@ import "@fontsource/dotgothic16";
 import "@fontsource/m-plus-1-code";
 import "styles/global.css";
 
+export type SectionMode = "show" | "hide" | undefined;
+
 export interface Props {
 	iconName?: string;
 	title?: string;
-	displayFooter?: boolean;
+	footer?: SectionMode;
 }
 const {
 	title = "misononoa.cc",
 	iconName = "man-walking",
-	displayFooter,
+	footer,
 } = Astro.props;
 ---
 
@@ -24,7 +26,7 @@ const {
 	<body>
 		<Header title={title} iconName={iconName} />
 		<slot />
-		<Footer display={displayFooter}>
+		<Footer display={footer === "show"}>
 			<slot name="footer" />
 		</Footer>
 	</body>

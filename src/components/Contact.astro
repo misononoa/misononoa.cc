@@ -1,5 +1,5 @@
 ---
-const accounts: [string, string][] = [
+const accounts = [
 	{
 		host: "https://msky.misononoa.cc",
 		username: "@misononoa",
@@ -20,26 +20,21 @@ const accounts: [string, string][] = [
 		text: "Threads",
 	},
 	{ host: "https://github.com", username: "misononoa", text: "GitHub" },
-].map<[string, string]>((a) => {
-	if (!!a.username) {
-		return [
-			`${a.host}/` +
-				(!!a.path ? `${a.path}/${a.username}` : `${a.username}`),
-			a.text.toLowerCase().match("misskey") ? a.text + "🍀" : a.text,
-		];
-	} else {
-		return [a.host, a.text];
-	}
-});
+];
 ---
 
 <ul class="horizontal-list">
 	{
-		accounts.map(([href, text]) => (
-			<li class="item">
-				<a href={href}>{text}</a>
-			</li>
-		))
+		accounts.map((account) => {
+			const path = [account.host];
+			if (!!account.path) path.push(account.path);
+			if (!!account.username) path.push(account.username);
+			let text = account.text;
+			if (text.match(/misskey/i)) text += "🍀";
+			return <li class="item">
+				<a href={path.join("/")}>{text}</a>
+			</li>;
+		})
 	}
 </ul>
 
