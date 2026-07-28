@@ -38,7 +38,7 @@ const linkprops: NavLink[] = [
 <header>
 	<h1>
 		<Icon name={`fluent-emoji-flat:${iconName}`} height={25} class="icon" />
-		{title}
+		<span class="title">{title}</span>
 	</h1>
 	<!-- <Navigation client:idle current={title} links={linkprops} /> -->
 	<Nav client:idle current={title} links={linkprops} />
@@ -54,6 +54,10 @@ const linkprops: NavLink[] = [
 	h1 {
 		margin: 1rem 0;
 		font-size: 170%;
+	}
+
+	h1 > span.title {
+		margin-left: 0.5ch;
 	}
 
 	.icon {

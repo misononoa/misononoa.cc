@@ -4,7 +4,12 @@
     "jsx": "preserve",
     "jsxImportSource": "react",
     "rootDir": "./",
-    "baseUrl": "./src/",
+    "paths": {
+      "@components/*": ["./src/components/*"],
+      "@layouts/*": ["./src/layouts/*"],
+      "@lib/*": ["./src/lib/*"],
+      "@styles/*": ["./src/styles/*"]
+    },
     "plugins": [
       {
         "name": "@astrojs/ts-plugin"
