@@ -1,0 +1,22 @@
+---
+layout: "@layouts/MdxLayout.astro"
+title: about_me
+iconName: four-leaf-clover
+footer: show
+messages:
+   - トマトが好きです
+   - 寒い季節のほうが好きです。
+   - 口の中の皮を噛む癖があります。
+   - べっこうあめが好き
+   - 元気
+   - ゲームをプレイすることがあります。
+---
+
+import Main from "@components/Main.astro";
+import RandomMessage from "@components/RandMsg.vue";
+
+misononoaです。
+
+日本に住んでます。
+
+<RandomMessage client:load messages={frontmatter.messages} />

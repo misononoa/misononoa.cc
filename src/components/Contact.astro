@@ -5,6 +5,7 @@ const accounts = [
 		username: "@misononoa",
 		text: "Misskey",
 	},
+	{ host: "https://yumema.link", username: "@misononoa", text: "Mastodon" },
 	{ host: "https://x.com", username: "@misononoa", text: "x.com" },
 	{ host: "mailto:me@misononoa.cc", text: "email" },
 	{
@@ -31,9 +32,12 @@ const accounts = [
 			if (!!account.username) path.push(account.username);
 			let text = account.text;
 			if (text.match(/misskey/i)) text += "🍀";
-			return <li class="item">
-				<a href={path.join("/")}>{text}</a>
-			</li>;
+			else if (text.match(/mastodon/i)) text += "🐘";
+			return (
+				<li class="item">
+					<a href={path.join("/")}>{text}</a>
+				</li>
+			);
 		})
 	}
 </ul>

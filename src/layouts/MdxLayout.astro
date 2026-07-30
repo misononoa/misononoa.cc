@@ -1,0 +1,12 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import Main from "@components/Main.astro";
+
+const { title, iconName, footer } = Astro.props.frontmatter;
+---
+
+<BaseLayout title={title} iconName={iconName} footer={footer}>
+    <Main>
+        <slot />
+    </Main>
+</BaseLayout>
