@@ -35,7 +35,7 @@ const accounts = [
 			else if (text.match(/mastodon/i)) text += "🐘";
 			return (
 				<li class="item">
-					<a href={path.join("/")}>{text}</a>
+					<a rel="me" href={path.join("/")}>{text}</a>
 				</li>
 			);
 		})
