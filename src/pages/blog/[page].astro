@@ -1,6 +1,6 @@
 ---
 import type { GetStaticPaths, GetStaticPathsOptions } from "astro";
-import { format } from "date-fns";
+import { parseISO, format } from "date-fns";
 import { getAllBlogs, type Blog } from "@lib/microcms.ts";
 import { LIST_PER_PAGE, TIMEFMT } from "@lib/constants.ts";
 import BaseLayout from "@layouts/BaseLayout.astro";
@@ -25,7 +25,7 @@ const rowCount = Math.ceil(listPerPage / colCount);
             {
                 page.data.map((blog) => {
                     const date = !!blog.publishedAt
-                        ? format(blog.publishedAt, TIMEFMT)
+                        ? format(parseISO(blog.publishedAt), TIMEFMT)
                         : "none";
                     const content = blog.content.substring(0, 800);
                     return (

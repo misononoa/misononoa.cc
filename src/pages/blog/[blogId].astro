@@ -1,6 +1,6 @@
 ---
 import type { GetStaticPaths } from "astro";
-import { parseISO, isValid, getUnixTime, format } from "date-fns";
+import { compareAsc, parseISO, isValid, getUnixTime, format } from "date-fns";
 import { getAllBlogIds, getBlogDetail, type Blog } from "@lib/microcms";
 import { TIMEFMT } from "@lib/constants.ts";
 import BaseLayout from "@layouts/BaseLayout.astro";
@@ -18,8 +18,8 @@ const { blogId } = Astro.params;
 
 const blog: Blog = await getBlogDetail(blogId);
 
-const fields: { k: string; v: Date }[] = [];
-(() => {
+const fields: { k: string; v: Date }[] = (() => {
+    let fields = [];
     const set = new Set();
     for (const [k, v] of Object.entries(blog)) {
         if (!v || typeof v !== 'string') continue;
@@ -31,6 +31,7 @@ const fields: { k: string; v: Date }[] = [];
             fields.push({ k, v: date});
         }
     }
+    return fields.sort((a, b) => compareAsc(a.v, b.v));
 })();
 ---
 
