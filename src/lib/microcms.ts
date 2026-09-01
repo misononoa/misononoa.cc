@@ -1,3 +1,4 @@
+import { compareAsc, parseISO } from "date-fns";
 import type { MicroCMSListContent } from "microcms-js-sdk";
 import { createClient } from "microcms-js-sdk";
 
@@ -40,7 +41,7 @@ export const getAllBlogs = async () => {
 }
 
 export const getBlogDetails = async ({ limit, offset }: { limit?: number, offset?: number }) => {
-  const blogDetails = (await getAllBlogs()).sort((a, b) => Date.parse(a.createdAt) - Date.parse(b.createdAt)).reverse();
+  const blogDetails = (await getAllBlogs()).sort((a, b) => compareAsc(parseISO(a.createdAt), parseISO(b.createdAt))).reverse();
   const result = [];
   for (let i: number = 0; i < blogDetails.length; i++) {
     if (!!limit && i >= limit) break;

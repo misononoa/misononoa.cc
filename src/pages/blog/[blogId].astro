@@ -1,7 +1,8 @@
 ---
 import type { GetStaticPaths } from "astro";
+import { parseISO, isValid, getUnixTime, format } from "date-fns";
 import { getAllBlogIds, getBlogDetail, type Blog } from "@lib/microcms";
-import { compareDate, dateToString } from "@lib/util.ts";
+import { TIMEFMT } from "@lib/constants.ts";
 import BaseLayout from "@layouts/BaseLayout.astro";
 import Main from "@components/Main.astro";
 
@@ -17,14 +18,19 @@ const { blogId } = Astro.params;
 
 const blog: Blog = await getBlogDetail(blogId);
 
-const fields: { k: string; v: Date }[] = (() => {
-	const dates = Object.entries(blog)
-		.map(([k, v]) => ({ k, v: new Date(Date.parse(v)) }))
-		.filter(({ k, v }) => k.match(/At$/) && !!v.getDate());
-	return [...new Set(dates.map(({ v }) => v.getTime()))]
-		.map((time) => dates.find(({ v }) => v.getTime() === time))
-		.filter((v) => !!v)
-		.sort((a, b) => compareDate(a.v, b.v));
+const fields: { k: string; v: Date }[] = [];
+(() => {
+    const set = new Set();
+    for (const [k, v] of Object.entries(blog)) {
+        if (!v || typeof v !== 'string') continue;
+        const date = parseISO(v);
+        if (!k.match(/At$/) || !isValid(date)) continue;
+        const utime = getUnixTime(date);
+        if (!set.has(utime)) {
+            set.add(getUnixTime(date));
+            fields.push({ k, v: date});
+        }
+    }
 })();
 ---
 
@@ -34,7 +40,7 @@ const fields: { k: string; v: Date }[] = (() => {
             <div class="article-info">
 				{fields.map((e) => (
                         <div>{e.k}:</div>
-                        <div>{dateToString(e.v)}</div>
+                        <div>{format(e.v, TIMEFMT)}</div>
 				))}
             </div>
             <div set:html={blog.content}/>
